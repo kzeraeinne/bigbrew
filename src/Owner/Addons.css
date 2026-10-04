@@ -1,0 +1,595 @@
+/* =========================================================
+   BIGBREW SMART OPERATIONS
+   ADD-ONS MODULE
+   ========================================================= */
+
+.addons-page {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 4px 0 48px;
+  color: #35251d;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.addons-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.addons-eyebrow {
+  margin-bottom: 8px;
+  color: #a66a2c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.addons-header h1 {
+  margin: 0;
+  color: #33231b;
+  font-size: 40px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.addons-header p {
+  margin: 10px 0 0;
+  color: #816f64;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.addons-summary {
+  min-width: 100px;
+  padding: 13px 18px;
+  border: 1px solid #eadac7;
+  border-radius: 12px;
+  background: #fffaf4;
+  text-align: center;
+}
+
+.addons-summary strong {
+  display: block;
+  color: #3a271e;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.addons-summary span {
+  display: block;
+  margin-top: 5px;
+  color: #a1836d;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* =========================================================
+   INFO
+   ========================================================= */
+
+.addons-info {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 22px;
+  padding: 15px 18px;
+  border: 1px solid #eadbc9;
+  border-radius: 12px;
+  background: #fbf2e7;
+}
+
+.addons-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 9px;
+  background: #f2dfc7;
+  color: #a96725;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.addons-info strong {
+  display: block;
+  color: #493126;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.addons-info p {
+  margin: 3px 0 0;
+  color: #806e62;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.addons-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+
+.addons-search {
+  position: relative;
+  width: 330px;
+}
+
+.addons-search span {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  transform: translateY(-50%);
+  color: #a48e7e;
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.addons-search input {
+  width: 100%;
+  height: 42px;
+  box-sizing: border-box;
+  padding: 0 14px 0 39px;
+  border: 1px solid #dfcfbd;
+  border-radius: 9px;
+  outline: none;
+  background: #fffdfa;
+  color: #392820;
+  font-family: inherit;
+  font-size: 13px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.addons-search input::placeholder {
+  color: #b3a49a;
+}
+
+.addons-search input:focus {
+  border-color: #b87936;
+  box-shadow: 0 0 0 3px rgba(184, 121, 54, 0.1);
+}
+
+.addons-count {
+  color: #907d70;
+  font-size: 12px;
+}
+
+.addons-count strong {
+  color: #493126;
+}
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.addons-card {
+  overflow: hidden;
+  border: 1px solid #eadccf;
+  border-radius: 14px;
+  background: #fffdfa;
+  box-shadow: 0 5px 20px rgba(73, 48, 32, 0.035);
+}
+
+.addons-table {
+  width: 100%;
+}
+
+.addons-table-head,
+.addons-table-row {
+  display: grid;
+  grid-template-columns: minmax(250px, 2fr) 1.15fr 1.15fr 1.1fr 0.9fr;
+  align-items: center;
+  column-gap: 18px;
+}
+
+.addons-table-head {
+  min-height: 52px;
+  padding: 0 20px;
+  border-bottom: 1px solid #eadfd4;
+  background: #fcf7f1;
+  color: #9b8575;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.addons-table-row {
+  min-height: 72px;
+  padding: 0 20px;
+  border-bottom: 1px solid #eee4da;
+  transition: background 0.15s ease;
+}
+
+.addons-table-row:last-child {
+  border-bottom: none;
+}
+
+.addons-table-row:hover {
+  background: #fff9f2;
+}
+
+/* =========================================================
+   PRODUCT
+   ========================================================= */
+
+.addons-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.addons-product-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 9px;
+  background: #f5e6d3;
+  color: #a96725;
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.addons-name-cell strong {
+  display: block;
+  overflow: hidden;
+  color: #3d2b22;
+  font-size: 13px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.addons-note {
+  display: block;
+  margin-top: 3px;
+  color: #a08c7e;
+  font-size: 10px;
+}
+
+.addons-price {
+  color: #493126;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.addons-inventory {
+  color: #79685d;
+  font-size: 13px;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.addons-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  gap: 6px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.addons-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.addons-status-available {
+  background: #e8f5ed;
+  color: #2e8a5c;
+}
+
+.addons-status-low {
+  background: #fff1d9;
+  color: #ae7220;
+}
+
+.addons-status-out {
+  background: #fbe6e3;
+  color: #b54a40;
+}
+
+/* =========================================================
+   ACTION
+   ========================================================= */
+
+.addons-edit-button {
+  height: 34px;
+  padding: 0 13px;
+  border: 1px solid #ddcbb8;
+  border-radius: 7px;
+  background: #fffdfa;
+  color: #8f5d2b;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.addons-edit-button:hover {
+  border-color: #c79562;
+  background: #fbf0e3;
+}
+
+.addons-edit-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.addons-empty {
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.addons-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 15px;
+  border-radius: 12px;
+  background: #f7eadb;
+  color: #a96725;
+  font-size: 23px;
+}
+
+.addons-empty strong {
+  display: block;
+  color: #493126;
+  font-size: 15px;
+}
+
+.addons-empty p {
+  margin: 6px 0 0;
+  color: #9b897c;
+  font-size: 13px;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.addons-modal-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(50, 35, 27, 0.38);
+  backdrop-filter: blur(3px);
+}
+
+.addons-modal {
+  width: min(440px, 100%);
+  border: 1px solid #eadbc9;
+  border-radius: 16px;
+  background: #fffdfa;
+  box-shadow: 0 20px 60px rgba(50, 35, 27, 0.2);
+}
+
+.addons-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid #eee3d8;
+}
+
+.addons-modal-header h2 {
+  margin: 0;
+  color: #35251d;
+  font-size: 24px;
+  letter-spacing: -0.025em;
+}
+
+.addons-close-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #89776a;
+  cursor: pointer;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.addons-close-button:hover {
+  background: #f7ecdf;
+  color: #493126;
+}
+
+.addons-modal-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 22px;
+  padding: 13px;
+  border-radius: 10px;
+  background: #fbf2e7;
+}
+
+.addons-modal-product strong {
+  display: block;
+  color: #493126;
+  font-size: 13px;
+}
+
+.addons-modal-product span {
+  display: block;
+  margin-top: 3px;
+  color: #907c6e;
+  font-size: 11px;
+}
+
+.addons-field {
+  display: block;
+  margin: 0 22px;
+}
+
+.addons-field > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #5c4639;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.addons-price-input {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  border: 1px solid #dccab7;
+  border-radius: 8px;
+  background: #fffdfa;
+  overflow: hidden;
+}
+
+.addons-price-input > span {
+  padding-left: 13px;
+  color: #9a806c;
+  font-weight: 700;
+}
+
+.addons-price-input input {
+  width: 100%;
+  height: 100%;
+  padding: 0 12px 0 7px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #3a281f;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.addons-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  padding: 22px;
+}
+
+.addons-cancel-button,
+.addons-save-button {
+  height: 38px;
+  padding: 0 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.addons-cancel-button {
+  border: 1px solid #ddcdbd;
+  background: #fffdfa;
+  color: #765f50;
+}
+
+.addons-cancel-button:hover {
+  background: #f8eee4;
+}
+
+.addons-save-button {
+  border: 1px solid #a96725;
+  background: #a96725;
+  color: white;
+}
+
+.addons-save-button:hover {
+  background: #92591f;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .addons-table-head,
+  .addons-table-row {
+    grid-template-columns:
+      minmax(200px, 1.8fr)
+      1fr
+      1fr
+      1fr;
+  }
+
+  .addons-table-head > div:nth-child(5),
+  .addons-table-row > div:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .addons-header {
+    align-items: flex-start;
+  }
+
+  .addons-header h1 {
+    font-size: 32px;
+  }
+
+  .addons-summary {
+    display: none;
+  }
+
+  .addons-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .addons-search {
+    width: 100%;
+  }
+
+  .addons-table {
+    overflow-x: auto;
+  }
+
+  .addons-table-head,
+  .addons-table-row {
+    min-width: 760px;
+  }
+}

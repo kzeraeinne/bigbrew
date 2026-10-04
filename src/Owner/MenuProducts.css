@@ -1,0 +1,679 @@
+/* =========================================================
+   BIGBREW SMART OPERATIONS
+   MENU / PRODUCTS
+   Warm beige / coffee theme
+   ========================================================= */
+
+.menu-products-page {
+  width: 100%;
+  min-height: 100%;
+  color: #35251f;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.mp-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+
+.mp-eyebrow {
+  margin-bottom: 10px;
+  color: #a96b2c;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+}
+
+.mp-page-header h1 {
+  margin: 0;
+  color: #35251f;
+  font-size: clamp(34px, 3vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.mp-page-header p {
+  max-width: 760px;
+  margin: 12px 0 0;
+  color: #806d63;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.mp-product-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 10px 14px;
+  border: 1px solid #eadbc9;
+  border-radius: 10px;
+  background: #f8ead8;
+  color: #98612d;
+}
+
+.mp-product-count strong {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.mp-product-count span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.mp-card {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #eadbc9;
+  border-radius: 18px;
+  background: #fffdfa;
+  box-shadow: 0 10px 30px rgba(72, 46, 28, 0.04);
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.mp-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid #eee2d4;
+  background: #fffdfa;
+}
+
+.mp-search-wrapper {
+  position: relative;
+  width: min(360px, 100%);
+}
+
+.mp-search-wrapper input {
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  padding: 0 16px 0 42px;
+  border: 1px solid #dfd0bf;
+  border-radius: 9px;
+  outline: none;
+  background: #ffffff;
+  color: #35251f;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.mp-search-wrapper input::placeholder {
+  color: #b0a095;
+}
+
+.mp-search-wrapper input:focus {
+  border-color: #c47a2c;
+  box-shadow: 0 0 0 3px rgba(196, 122, 44, 0.1);
+}
+
+.mp-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  z-index: 1;
+  transform: translateY(-52%);
+  color: #927d6e;
+  font-size: 22px;
+  pointer-events: none;
+}
+
+.mp-select {
+  height: 44px;
+  min-width: 170px;
+  padding: 0 38px 0 14px;
+  border: 1px solid #dfd0bf;
+  border-radius: 9px;
+  outline: none;
+  background: #ffffff;
+  color: #554239;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mp-select:focus {
+  border-color: #c47a2c;
+}
+
+/* =========================================================
+   RESULT SUMMARY
+   ========================================================= */
+
+.mp-result-summary {
+  padding: 0 20px 16px;
+  color: #8a7669;
+  font-size: 13px;
+}
+
+.mp-result-summary strong {
+  color: #35251f;
+  font-weight: 800;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.mp-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mp-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.mp-table thead {
+  background: #faf5ee;
+}
+
+.mp-table th {
+  padding: 15px 18px;
+  border-top: 1px solid #eee2d4;
+  border-bottom: 1px solid #eadfd2;
+  color: #987f6e;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.mp-table td {
+  height: 74px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #eee5dc;
+  color: #5d4d43;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.mp-table tbody tr {
+  background: #fffdfa;
+  transition: background 0.15s ease;
+}
+
+.mp-table tbody tr:hover {
+  background: #fcf5eb;
+}
+
+/* COLUMN WIDTHS */
+
+.mp-table th:nth-child(1),
+.mp-table td:nth-child(1) {
+  width: 27%;
+}
+
+.mp-table th:nth-child(2),
+.mp-table td:nth-child(2) {
+  width: 13%;
+}
+
+.mp-table th:nth-child(3),
+.mp-table td:nth-child(3) {
+  width: 17%;
+}
+
+.mp-table th:nth-child(4),
+.mp-table td:nth-child(4) {
+  width: 11%;
+}
+
+.mp-table th:nth-child(5),
+.mp-table td:nth-child(5) {
+  width: 10%;
+}
+
+.mp-table th:nth-child(6),
+.mp-table td:nth-child(6) {
+  width: 13%;
+}
+
+.mp-table th:nth-child(7),
+.mp-table td:nth-child(7) {
+  width: 9%;
+}
+
+/* =========================================================
+   PRODUCT CELL
+   ========================================================= */
+
+.mp-product-cell {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.mp-product-cell > div:last-child {
+  min-width: 0;
+}
+
+.mp-product-cell strong {
+  display: block;
+  overflow: hidden;
+  color: #35251f;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mp-product-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #f0dfca;
+  border-radius: 11px;
+  background: #faecd9;
+}
+
+.mp-product-icon span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.mp-category-text {
+  color: #756358;
+  font-size: 14px;
+}
+
+/* =========================================================
+   TYPE BADGES
+   ========================================================= */
+
+.mp-type-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid #eaded1;
+  border-radius: 7px;
+  background: #f8f2eb;
+  color: #715f52;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.mp-type-badge.iced {
+  border-color: #dce8dc;
+  background: #eef7ef;
+  color: #4d7857;
+}
+
+.mp-type-badge.hot {
+  border-color: #f0d9c6;
+  background: #fbefe5;
+  color: #a46030;
+}
+
+/* =========================================================
+   PRICE
+   ========================================================= */
+
+.mp-price {
+  color: #382820;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   AVAILABILITY
+   ========================================================= */
+
+.mp-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.mp-availability.available {
+  background: #e8f5ed;
+  color: #378052;
+}
+
+.mp-availability.unavailable {
+  background: #f8e6e3;
+  color: #a24f47;
+}
+
+.mp-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* =========================================================
+   ACTION
+   ========================================================= */
+
+.mp-edit-button {
+  padding: 7px 10px;
+  border: 1px solid #e2d2c0;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #9a602a;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.mp-edit-button:hover {
+  border-color: #c9915c;
+  background: #fcf2e6;
+}
+
+.mp-edit-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.mp-empty {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 300px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.mp-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  background: #f7e9d7;
+  color: #a56b32;
+  font-size: 27px;
+}
+
+.mp-empty h3 {
+  margin: 0;
+  color: #35251f;
+  font-size: 18px;
+}
+
+.mp-empty p {
+  margin: 8px 0 0;
+  color: #927e70;
+  font-size: 14px;
+}
+
+/* =========================================================
+   PRICE MODAL
+   ========================================================= */
+
+.mp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(43, 29, 21, 0.42);
+  backdrop-filter: blur(3px);
+}
+
+.mp-modal {
+  width: min(500px, 100%);
+  overflow: hidden;
+  border: 1px solid #eadbc9;
+  border-radius: 18px;
+  background: #fffdfa;
+  box-shadow: 0 24px 70px rgba(48, 30, 20, 0.22);
+}
+
+.mp-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  border-bottom: 1px solid #eee2d4;
+}
+
+.mp-modal-header h2 {
+  margin: 0;
+  color: #35251f;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.mp-modal-header p {
+  margin: 7px 0 0;
+  color: #8a7567;
+  font-size: 13px;
+}
+
+.mp-close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: #f7ede2;
+  color: #775d4b;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mp-close-button:hover {
+  background: #f0dfca;
+}
+
+.mp-modal-body {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.mp-form-group {
+  display: grid;
+  gap: 8px;
+}
+
+.mp-form-group label {
+  color: #58463b;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.mp-price-input {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  border: 1px solid #ddcdbb;
+  border-radius: 9px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.mp-price-input span {
+  padding-left: 14px;
+  color: #967762;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mp-price-input input {
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #35251f;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mp-price-input:focus-within {
+  border-color: #c47a2c;
+  box-shadow: 0 0 0 3px rgba(196, 122, 44, 0.1);
+}
+
+.mp-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 18px 24px;
+  border-top: 1px solid #eee2d4;
+  background: #fcf7f1;
+}
+
+.mp-cancel-button,
+.mp-save-button {
+  min-height: 40px;
+  padding: 0 17px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.mp-cancel-button {
+  border: 1px solid #dfd0bf;
+  background: #ffffff;
+  color: #6d5a4d;
+}
+
+.mp-save-button {
+  border: 1px solid #a86228;
+  background: #a86228;
+  color: #ffffff;
+}
+
+.mp-save-button:hover {
+  background: #8f5222;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .mp-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mp-product-count {
+    align-self: flex-start;
+  }
+
+  .mp-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mp-search-wrapper {
+    width: 100%;
+  }
+
+  .mp-select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .mp-page-header h1 {
+    font-size: 34px;
+  }
+
+  .mp-page-header p {
+    font-size: 14px;
+  }
+
+  .mp-card {
+    border-radius: 12px;
+  }
+
+  .mp-toolbar {
+    padding: 14px;
+  }
+
+  .mp-result-summary {
+    padding: 0 14px 14px;
+  }
+
+  .mp-table th,
+  .mp-table td {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .mp-modal-overlay {
+    padding: 14px;
+  }
+
+  .mp-modal-header,
+  .mp-modal-body {
+    padding: 18px;
+  }
+
+  .mp-modal-footer {
+    padding: 14px 18px;
+  }
+}
