@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./MenuProducts.css";
-import AddProduct from "./Addproduct";
+import AddProduct from "./AddProduct";
 
 const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
 
