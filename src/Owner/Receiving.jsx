@@ -131,7 +131,7 @@ function Receiving({
   update,
   user,
 }) {
-  const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
+  const API_BASE = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
   const [purchases, setPurchases] = useState([]);
   const [receivings, setReceivings] = useState([]);

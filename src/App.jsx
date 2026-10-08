@@ -503,7 +503,7 @@ function Login({ onLogin }) {
 
     try {
       const response = await fetch(
-        "http://localhost/bigbrew_api/Api/Auth/Login.php",
+        "https://kzeraeinne.infinityfreeapp.com/bigbrew_api/Api/Auth/Login.php",
         {
           method: "POST",
 
@@ -1132,7 +1132,7 @@ function OwnerDashboard({
       setError("");
 
       const response = await fetch(
-        "http://localhost/bigbrew_api/Api/Dashboard/List.php"
+        "https://kzeraeinne.infinityfreeapp.com/bigbrew_api/Api/Dashboard/List.php"
       );
 
       const result =
@@ -2244,7 +2244,7 @@ function OwnerSales() {
       }
 
       const url =
-        "http://localhost/bigbrew_api/Api/Sales/List.php" +
+        "https://kzeraeinne.infinityfreeapp.com/bigbrew_api/Api/Sales/List.php" +
         (params.toString()
           ? `?${params.toString()}`
           : "");

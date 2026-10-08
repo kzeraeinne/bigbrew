@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
 const CentralOrderQueue = () => {
   const [orders, setOrders] = useState([]);

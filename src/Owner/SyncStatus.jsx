@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./SyncStatus.css";
 
-const API_BASE_URL = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE_URL = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 const API_TEST_URL = `${API_BASE_URL}/Test.php`;
 
 const OFFLINE_ORDERS_KEY = "bigbrew-offline-orders";
@@ -153,7 +153,7 @@ function SyncStatus() {
        * IMPORTANT:
        * Use Test.php here.
        *
-       * https://kzeraeinne.infinityfreeapp.com
+       * https://kzeraeinne.infinityfreeapp.com/bigbrew_api
        * only shows the Apache directory listing.
        *
        * Test.php actually returns the JSON connection status.

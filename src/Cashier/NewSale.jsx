@@ -36,7 +36,7 @@ import "./NewSale.css";
 
 
 
-const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
 
 

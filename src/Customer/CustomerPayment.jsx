@@ -33,7 +33,7 @@ function CustomerPayment({
 
     try {
       const response = await fetch(
-        "https://kzeraeinne.infinityfreeapp.com/create_order.php",
+        "https://kzeraeinne.infinityfreeapp.com/bigbrew_api/create_order.php",
         {
           method: "POST",
           headers: {

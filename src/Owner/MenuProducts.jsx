@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./MenuProducts.css";
 import AddProduct from "./AddProduct";
 
-const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
 export default function MenuProducts() {
   const [products, setProducts] = useState([]);

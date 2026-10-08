@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./InventoryReconciliation.css";
 
-const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
 // Only these inventory records will appear
 const ALLOWED_INVENTORY_IDS = [42, 43, 44, 45];

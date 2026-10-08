@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./Addons.css";
 
-const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
 function AddOns() {
   const [addons, setAddons] = useState([]);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Expenses.css";
 
-const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
 function Expenses() {
   const [category, setCategory] = useState("Utilities");

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./Analytics.css";
 
-const API_BASE_URL = "https://kzeraeinne.infinityfreeapp.com";
+const API_BASE_URL = "https://kzeraeinne.infinityfreeapp.com/bigbrew_api";
 
 const ANALYTICS_API =
   `${API_BASE_URL}/Api/Analytics/Dashboard.php`;
