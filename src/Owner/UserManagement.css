@@ -1,0 +1,748 @@
+/* =========================================================
+   BIGBREW SMART OPERATIONS
+   USER MANAGEMENT
+   Warm Beige / Brown Theme
+   ========================================================= */
+
+.user-management-page {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 8px 0 60px;
+  color: #3b281f;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.um-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+
+.um-header-text {
+  min-width: 0;
+}
+
+.um-eyebrow {
+  margin-bottom: 10px;
+  color: #a9692b;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.um-header-text h1 {
+  margin: 0;
+  color: #35231b;
+  font-size: clamp(38px, 4vw, 54px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -1.8px;
+}
+
+.um-header-text p {
+  margin: 14px 0 0;
+  max-width: 700px;
+  color: #806b5e;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.um-active-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 11px 18px;
+  margin-top: 8px;
+  border: 1px solid #ead4b8;
+  border-radius: 999px;
+  background: #f7e8d2;
+  color: #9c5e23;
+}
+
+.um-counter-number {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.um-counter-label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   ALERTS
+   ========================================================= */
+
+.um-alert {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 22px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.um-alert-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.um-alert-error {
+  border: 1px solid #e9b9ae;
+  background: #fff2ef;
+  color: #9d4032;
+}
+
+.um-alert-error .um-alert-icon {
+  background: #e7b2a7;
+  color: #fff;
+}
+
+.um-alert-success {
+  border: 1px solid #cce1cf;
+  background: #eff8f0;
+  color: #44734a;
+}
+
+.um-alert-success .um-alert-icon {
+  background: #78a77d;
+  color: #fff;
+}
+
+/* =========================================================
+   TOP GRID
+   ========================================================= */
+
+.um-top-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(520px, 1.55fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 46px;
+}
+
+/* =========================================================
+   OWNER CONTROL CARD
+   ========================================================= */
+
+.um-control-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  min-height: 260px;
+  padding: 28px;
+  border: 1px solid #ead8c2;
+  border-radius: 22px;
+  background: #fffaf4;
+  box-sizing: border-box;
+}
+
+.um-control-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+  border-radius: 14px;
+  background: #f1ddc1;
+  color: #a76524;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.um-control-content h2 {
+  margin: 1px 0 12px;
+  color: #3b281f;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.um-control-content p {
+  margin: 0 0 12px;
+  color: #806b5e;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.um-control-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   ADD USER CARD
+   ========================================================= */
+
+.um-add-card {
+  padding: 28px 30px 30px;
+  border: 1px solid #ead8c2;
+  border-radius: 22px;
+  background: #fffaf4;
+  box-sizing: border-box;
+}
+
+.um-section-label {
+  margin-bottom: 8px;
+  color: #a9692b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.um-add-card h2 {
+  margin: 0 0 24px;
+  color: #3b281f;
+  font-size: 25px;
+  line-height: 1.2;
+}
+
+.um-add-form {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto;
+  gap: 14px;
+  align-items: end;
+}
+
+.um-form-field {
+  min-width: 0;
+}
+
+.um-form-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #5d493e;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.um-form-field input,
+.um-form-field select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #ddcbb6;
+  border-radius: 12px;
+  background: #fffdf9;
+  color: #3b281f;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.um-form-field input::placeholder {
+  color: #b39f91;
+}
+
+.um-form-field input:focus,
+.um-form-field select:focus {
+  border-color: #c27b35;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(194, 123, 53, 0.12);
+}
+
+.um-add-button {
+  height: 48px;
+  min-width: 125px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 12px;
+  background: #ad6927;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.um-add-button:hover {
+  background: #96571e;
+  box-shadow: 0 7px 18px rgba(126, 77, 31, 0.2);
+  transform: translateY(-1px);
+}
+
+.um-add-button:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   TEAM SECTION
+   ========================================================= */
+
+.um-team-section {
+  width: 100%;
+}
+
+.um-team-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.um-team-header h2 {
+  margin: 0;
+  color: #3b281f;
+  font-size: 27px;
+  line-height: 1.2;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.um-search-wrapper {
+  position: relative;
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.um-search-wrapper input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px 0 39px;
+  border: 1px solid #ddcbb6;
+  border-radius: 12px;
+  background: #fffaf4;
+  color: #3b281f;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.um-search-wrapper input::placeholder {
+  color: #aa9789;
+}
+
+.um-search-wrapper input:focus {
+  border-color: #c27b35;
+  box-shadow: 0 0 0 4px rgba(194, 123, 53, 0.1);
+}
+
+.um-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #967f6e;
+  font-size: 20px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.um-table-card {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #ead8c2;
+  border-radius: 20px;
+  background: #fffaf4;
+  box-shadow: 0 8px 30px rgba(91, 59, 37, 0.045);
+}
+
+.um-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.um-users-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.um-users-table th {
+  height: 58px;
+  padding: 0 20px;
+  border-bottom: 1px solid #ead8c2;
+  background: #fbf1e5;
+  color: #9a816e;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.um-users-table td {
+  height: 76px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #eee1d3;
+  color: #5b4639;
+  font-size: 14px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.um-users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.um-users-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.um-users-table tbody tr:hover {
+  background: #fdf6ee;
+}
+
+/* Column sizing */
+
+.um-users-table th:nth-child(1),
+.um-users-table td:nth-child(1) {
+  width: 27%;
+}
+
+.um-users-table th:nth-child(2),
+.um-users-table td:nth-child(2) {
+  width: 15%;
+}
+
+.um-users-table th:nth-child(3),
+.um-users-table td:nth-child(3) {
+  width: 20%;
+}
+
+.um-users-table th:nth-child(4),
+.um-users-table td:nth-child(4) {
+  width: 13%;
+}
+
+.um-users-table th:nth-child(5),
+.um-users-table td:nth-child(5) {
+  width: 15%;
+}
+
+.um-users-table th:nth-child(6),
+.um-users-table td:nth-child(6) {
+  width: 10%;
+}
+
+/* =========================================================
+   USER NAME
+   ========================================================= */
+
+.um-user-name {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.um-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 50%;
+  background: #f1ddc1;
+  color: #9f6023;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.um-user-name > div:last-child {
+  min-width: 0;
+}
+
+.um-user-name strong {
+  display: block;
+  overflow: hidden;
+  color: #3b281f;
+  font-size: 14px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.um-user-name span {
+  display: block;
+  margin-top: 3px;
+  color: #a18b7c;
+  font-size: 12px;
+}
+
+/* =========================================================
+   USERNAME
+   ========================================================= */
+
+.um-username {
+  color: #735d4e;
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+}
+
+/* =========================================================
+   ROLE
+   ========================================================= */
+
+.um-role-badge {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.um-role-owner {
+  background: #f2dfc4;
+  color: #92551e;
+}
+
+.um-role-cashier {
+  background: #eee7dd;
+  color: #685548;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.um-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 29px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+}
+
+.um-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.um-status-active {
+  background: #e8f3e8;
+  color: #4d7d53;
+}
+
+.um-status-active .um-status-dot {
+  background: #68a46f;
+}
+
+.um-status-inactive {
+  background: #f5e7e4;
+  color: #99584d;
+}
+
+.um-status-inactive .um-status-dot {
+  background: #b86b5e;
+}
+
+/* =========================================================
+   LAST LOGIN
+   ========================================================= */
+
+.um-last-login {
+  color: #806c5e;
+  font-size: 13px;
+}
+
+/* =========================================================
+   ACTION BUTTON
+   ========================================================= */
+
+.um-action-button {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.um-deactivate {
+  color: #9b5549;
+}
+
+.um-deactivate:hover {
+  color: #77382f;
+  text-decoration: underline;
+}
+
+.um-activate {
+  color: #5b805d;
+}
+
+.um-activate:hover {
+  color: #3e633f;
+  text-decoration: underline;
+}
+
+.um-protected {
+  color: #ad9b8d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.um-empty {
+  height: 140px !important;
+  text-align: center !important;
+  color: #9b897b !important;
+  font-size: 14px !important;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+  .um-top-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .um-control-card {
+    min-height: auto;
+  }
+
+  .um-add-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .um-add-button {
+    width: 100%;
+  }
+
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .user-management-page {
+    padding: 4px 0 40px;
+  }
+
+  .um-page-header {
+    display: block;
+    margin-bottom: 26px;
+  }
+
+  .um-header-text h1 {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+
+  .um-header-text p {
+    font-size: 15px;
+  }
+
+  .um-active-counter {
+    margin-top: 18px;
+  }
+
+  .um-top-grid {
+    gap: 14px;
+    margin-bottom: 34px;
+  }
+
+  .um-control-card {
+    padding: 21px;
+    border-radius: 17px;
+  }
+
+  .um-add-card {
+    padding: 22px;
+    border-radius: 17px;
+  }
+
+  .um-add-form {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .um-team-header {
+    display: block;
+  }
+
+  .um-team-header h2 {
+    font-size: 24px;
+  }
+
+  .um-search-wrapper {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .um-table-card {
+    border-radius: 15px;
+  }
+
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+  .um-control-card {
+    display: block;
+  }
+
+  .um-control-icon {
+    margin-bottom: 16px;
+  }
+
+  .um-header-text h1 {
+    font-size: 31px;
+  }
+
+  .um-users-table {
+    min-width: 800px;
+  }
+
+}

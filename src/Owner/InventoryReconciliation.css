@@ -1,0 +1,379 @@
+.inventory-reconciliation-page {
+  width: 100%;
+  padding: 4px 0 40px;
+  color: #3d2a20;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.ir-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.ir-eyebrow {
+  margin-bottom: 8px;
+  color: #9b6a3c;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.ir-heading h2 {
+  margin: 0;
+  color: #3b281f;
+  font-size: 38px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.ir-heading p {
+  max-width: 720px;
+  margin: 12px 0 0;
+  color: #8d7668;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ir-count-badge {
+  flex-shrink: 0;
+  padding: 11px 16px;
+  border: 1px solid #ead9c5;
+  border-radius: 12px;
+  background: #fffaf4;
+  color: #755238;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.ir-card {
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 1px solid #eadbca;
+  border-radius: 18px;
+  background: #fffdf9;
+  box-shadow: 0 8px 24px rgba(91, 61, 39, 0.05);
+}
+
+.ir-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px;
+  border-bottom: 1px solid #eee2d5;
+}
+
+.ir-section-label {
+  margin-bottom: 7px;
+  color: #a17751;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.ir-card-header h3 {
+  margin: 0;
+  color: #3d2a20;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.ir-event-count {
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: #f5eadc;
+  color: #785539;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.ir-form {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.3fr) minmax(150px, 0.7fr) minmax(220px, 1fr) auto;
+  gap: 18px;
+  align-items: end;
+  padding: 28px 30px;
+}
+
+.ir-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ir-field label {
+  color: #6e5544;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ir-field select,
+.ir-field input {
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border: 1px solid #dfcfbd;
+  border-radius: 11px;
+  outline: none;
+  background: #fffdf9;
+  color: #3d2a20;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.ir-field select:focus,
+.ir-field input:focus {
+  border-color: #b87935;
+  box-shadow: 0 0 0 3px rgba(184, 121, 53, 0.1);
+}
+
+.ir-system-quantity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.ir-system-quantity span {
+  margin-bottom: 5px;
+  color: #9a8575;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.ir-system-quantity strong {
+  color: #8c5d2f;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.ir-record-button {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 11px;
+  background: #a96f36;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ir-record-button:hover {
+  background: #8f5929;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   VARIANCE PREVIEW
+========================= */
+
+.ir-variance-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 30px 26px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.ir-variance-preview.matched {
+  border: 1px solid #d9e7d8;
+  background: #f3f8f1;
+  color: #557451;
+}
+
+.ir-variance-preview.review {
+  border: 1px solid #ead7bd;
+  background: #fbf2e5;
+  color: #765638;
+}
+
+.ir-variance-preview strong {
+  font-size: 15px;
+}
+
+.ir-variance-preview span:last-child {
+  margin-left: auto;
+  color: #8d7668;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.ir-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ir-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ir-table thead {
+  background: #fbf7f1;
+}
+
+.ir-table th {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee2d5;
+  color: #a18b79;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ir-table td {
+  padding: 17px 20px;
+  border-bottom: 1px solid #f1e8de;
+  color: #6f5a4a;
+  font-size: 13px;
+}
+
+.ir-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ir-table td strong {
+  color: #3d2a20;
+}
+
+.variance-matched {
+  color: #5f8058 !important;
+  font-weight: 800;
+}
+
+.variance-warning {
+  color: #a56b31 !important;
+  font-weight: 800;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.ir-status {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.status-matched {
+  background: #edf5eb;
+  color: #5d7d57;
+}
+
+.status-review {
+  background: #f8ecdd;
+  color: #98632e;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.ir-empty {
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  text-align: center;
+}
+
+.ir-empty-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  border-radius: 16px;
+  background: #f6e8d4;
+  color: #a96f36;
+  font-size: 24px;
+}
+
+.ir-empty strong {
+  color: #3d2a20;
+  font-size: 16px;
+}
+
+.ir-empty span {
+  color: #a18b79;
+  font-size: 13px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+  .ir-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ir-record-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .ir-heading {
+    flex-direction: column;
+  }
+
+  .ir-heading h2 {
+    font-size: 30px;
+  }
+
+  .ir-card-header {
+    padding: 20px;
+  }
+
+  .ir-form {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .ir-variance-preview {
+    margin: 0 20px 20px;
+    flex-wrap: wrap;
+  }
+
+  .ir-variance-preview span:last-child {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .ir-table {
+    min-width: 700px;
+  }
+}

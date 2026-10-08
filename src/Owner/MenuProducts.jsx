@@ -1,554 +1,1192 @@
-import { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./MenuProducts.css";
+import AddProduct from "./Addproduct";
 
-/* =========================================================
-   BIGBREW SMART OPERATIONS
-   MENU / PRODUCTS
-   Branch: Putatan, Muntinlupa City
-   ========================================================= */
-
-const PRODUCT_GROUPS = [
-  {
-    category: "Milk Tea",
-    type: "Milk Tea",
-    regular: 29,
-    large: 39,
-    products: [
-      "Dark Choco",
-      "Cookies & Cream",
-      "Okinawa",
-      "Wintermelon",
-      "Cheesecake",
-      "Matcha",
-      "Chocolate",
-      "Red Velvet",
-      "Salted Caramel",
-      "Choco Kisses",
-      "Taro",
-      "Strawberry",
-    ],
-  },
-
-  {
-    category: "Coffee",
-    type: "Iced Coffee",
-    regular: 39,
-    large: 49,
-    products: [
-      "Brusko",
-      "Mocha",
-      "Macchiato",
-      "Vanilla",
-      "Caramel",
-      "Matcha",
-      "Fudge",
-      "Spanish Latte",
-    ],
-  },
-
-  {
-    category: "Coffee",
-    type: "Hot Coffee",
-    regular: 39,
-    large: 49,
-    products: [
-      "Brusko",
-      "Mocha",
-      "Macchiato",
-      "Vanilla",
-      "Caramel",
-      "Matcha",
-      "Fudge",
-      "Spanish Latte",
-    ],
-  },
-
-  {
-    category: "Fruit Tea",
-    type: "Fruit Tea",
-    regular: 29,
-    large: 39,
-    products: [
-      "Lychee",
-      "Green Apple",
-      "Blueberry",
-      "Lemon",
-      "Strawberry",
-      "Kiwi",
-      "Mango",
-      "Honey Peach",
-    ],
-  },
-
-  {
-    category: "Brosty",
-    type: "Brosty",
-    regular: 49,
-    large: 59,
-    products: [
-      "Lychee",
-      "Green Apple",
-      "Blueberry",
-      "Lemon",
-      "Strawberry",
-      "Kiwi",
-      "Mango",
-      "Honey Peach",
-    ],
-  },
-
-  {
-    category: "Praf",
-    type: "Praf",
-    regular: 49,
-    large: 59,
-    products: [
-      "Coffee Jelly",
-      "Caramel Macchiato",
-      "Mocha",
-      "Vanilla Coffee",
-      "Java Chip",
-      "Cheesecake",
-      "Cookies & Cream",
-      "Creamy Avocado",
-      "Chocolate",
-      "Matcha",
-      "Strawberry",
-      "Taro",
-    ],
-  },
-];
-
-/* ---------------------------------------------------------
-   BUILD THE 56 PRODUCTS
---------------------------------------------------------- */
-
-const INITIAL_PRODUCTS = PRODUCT_GROUPS.flatMap((group, groupIndex) =>
-  group.products.map((name, index) => ({
-    id: `${group.category.toLowerCase().replace(/\s+/g, "-")}-${group.type
-      .toLowerCase()
-      .replace(/\s+/g, "-")}-${index + 1}`,
-    name,
-    category: group.category,
-    type: group.type,
-    regular: group.regular,
-    large: group.large,
-    available: true,
-    groupIndex,
-  })),
-);
-
-/* ---------------------------------------------------------
-   MONEY FORMAT
---------------------------------------------------------- */
-
-function peso(amount) {
-  return `₱${Number(amount).toFixed(2)}`;
-}
-
-/* ---------------------------------------------------------
-   PRODUCT ICON
---------------------------------------------------------- */
-
-function ProductIcon({ category }) {
-  const icons = {
-    "Milk Tea": "🧋",
-    Coffee: "☕",
-    "Fruit Tea": "🍹",
-    Brosty: "🥤",
-    Praf: "🥛",
-  };
-
-  return (
-    <div className="mp-product-icon">
-      <span>{icons[category] || "🥤"}</span>
-    </div>
-  );
-}
-
-/* =========================================================
-   MENU PRODUCTS
-   ========================================================= */
+const API_BASE = "https://kzeraeinne.infinityfreeapp.com";
 
 export default function MenuProducts() {
-  const [products, setProducts] = useState(INITIAL_PRODUCTS);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [categoryLoading, setCategoryLoading] = useState(true);
+
+  const [error, setError] = useState("");
+  const [categoryError, setCategoryError] = useState("");
 
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All products");
-  const [availability, setAvailability] = useState("All availability");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [availabilityFilter, setAvailabilityFilter] =
+    useState("all");
+
+  const [showAddProduct, setShowAddProduct] = useState(false);
 
   const [editingProduct, setEditingProduct] = useState(null);
-  const [editRegular, setEditRegular] = useState("");
-  const [editLarge, setEditLarge] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [editError, setEditError] = useState("");
 
-  const categories = [
-    "All products",
-    "Milk Tea",
-    "Coffee",
-    "Fruit Tea",
-    "Brosty",
-    "Praf",
-  ];
+  const [editForm, setEditForm] = useState({
+    product_id: "",
+    product_name: "",
+    category_id: "",
+    description: "",
+    regular_price: "",
+    large_price: "",
+    is_active: 1,
+  });
 
-  /* -------------------------------------------------------
+  /* =========================================================
+     LOAD PRODUCTS
+     ========================================================= */
+
+  async function loadProducts() {
+    try {
+      setLoading(true);
+      setError("");
+
+      const response = await fetch(
+        `${API_BASE}/Api/Products/List.php`
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "Failed to load products."
+        );
+      }
+
+      setProducts(result.data?.products || []);
+    } catch (err) {
+      console.error("Load products error:", err);
+
+      setError(
+        err.message ||
+          "Unable to load products. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  /* =========================================================
+     LOAD CATEGORIES
+     ========================================================= */
+
+  async function loadCategories() {
+    try {
+      setCategoryLoading(true);
+      setCategoryError("");
+
+      const response = await fetch(
+        `${API_BASE}/Api/Categories/List.php`
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "Failed to load categories."
+        );
+      }
+
+      const activeCategories =
+        (result.data?.categories || []).filter(
+          (category) =>
+            Number(category.is_active) === 1
+        );
+
+      setCategories(activeCategories);
+    } catch (err) {
+      console.error(
+        "Load categories error:",
+        err
+      );
+
+      setCategoryError(
+        err.message ||
+          "Unable to load categories."
+      );
+
+      setCategories([]);
+    } finally {
+      setCategoryLoading(false);
+    }
+  }
+
+  /* =========================================================
+     INITIAL LOAD
+     ========================================================= */
+
+  useEffect(() => {
+    loadProducts();
+    loadCategories();
+  }, []);
+
+  /* =========================================================
      FILTER PRODUCTS
-  ------------------------------------------------------- */
+     ========================================================= */
 
   const filteredProducts = useMemo(() => {
-    const query = search.trim().toLowerCase();
+    const searchValue =
+      search.trim().toLowerCase();
 
     return products.filter((product) => {
       const matchesSearch =
-        !query ||
-        product.name.toLowerCase().includes(query) ||
-        product.category.toLowerCase().includes(query) ||
-        product.type.toLowerCase().includes(query);
+        searchValue === "" ||
+        String(product.product_name || "")
+          .toLowerCase()
+          .includes(searchValue) ||
+        String(product.product_code || "")
+          .toLowerCase()
+          .includes(searchValue);
+
+      const isAvailable =
+        product.available === true;
 
       const matchesCategory =
-        category === "All products" || product.category === category;
+        selectedCategory === "all" ||
+        String(product.category_id) ===
+          String(selectedCategory);
 
       const matchesAvailability =
-        availability === "All availability" ||
-        (availability === "Available" && product.available) ||
-        (availability === "Unavailable" && !product.available);
+        availabilityFilter === "all" ||
+        (availabilityFilter === "available" &&
+          isAvailable) ||
+        (availabilityFilter === "unavailable" &&
+          !isAvailable);
 
-      return matchesSearch && matchesCategory && matchesAvailability;
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesAvailability
+      );
     });
-  }, [products, search, category, availability]);
+  }, [
+    products,
+    search,
+    selectedCategory,
+    availabilityFilter,
+  ]);
 
-  /* -------------------------------------------------------
-     EDIT PRICE
-  ------------------------------------------------------- */
+  /* =========================================================
+     ADD PRODUCT
+     ========================================================= */
 
-  function openPriceEditor(product) {
-    setEditingProduct(product);
-    setEditRegular(String(product.regular));
-    setEditLarge(String(product.large));
+  function handleProductCreated() {
+    loadProducts();
+    loadCategories();
   }
 
-  function savePrice() {
-    if (!editingProduct) return;
+  /* =========================================================
+     OPEN EDIT
+     ========================================================= */
 
-    const regular = Number(editRegular);
-    const large = Number(editLarge);
+  function openEditProduct(product) {
+    setEditError("");
 
-    if (!Number.isFinite(regular) || regular < 0) {
-      alert("Please enter a valid regular price.");
+    setEditForm({
+      product_id: product.product_id,
+      product_name: product.product_name || "",
+      category_id:
+        product.category_id !== null &&
+        product.category_id !== undefined
+          ? String(product.category_id)
+          : "",
+      description: product.description || "",
+      regular_price:
+        product.regular_price !== null &&
+        product.regular_price !== undefined
+          ? String(product.regular_price)
+          : "",
+      large_price:
+        product.large_price !== null &&
+        product.large_price !== undefined
+          ? String(product.large_price)
+          : "",
+      is_active:
+        Number(product.is_active) === 1
+          ? 1
+          : 0,
+    });
+
+    setEditingProduct(product);
+  }
+
+  /* =========================================================
+     CLOSE EDIT
+     ========================================================= */
+
+  function closeEditProduct() {
+    if (saving) {
       return;
     }
-
-    if (!Number.isFinite(large) || large < 0) {
-      alert("Please enter a valid large price.");
-      return;
-    }
-
-    setProducts((current) =>
-      current.map((product) =>
-        product.id === editingProduct.id
-          ? {
-              ...product,
-              regular,
-              large,
-            }
-          : product,
-      ),
-    );
 
     setEditingProduct(null);
+    setEditError("");
   }
 
-  /* -------------------------------------------------------
-     TOGGLE AVAILABILITY
-  ------------------------------------------------------- */
+  /* =========================================================
+     EDIT FORM CHANGE
+     ========================================================= */
 
-  function toggleAvailability(productId) {
-    setProducts((current) =>
-      current.map((product) =>
-        product.id === productId
-          ? {
-              ...product,
-              available: !product.available,
-            }
-          : product,
-      ),
-    );
+  function handleEditChange(event) {
+    const { name, value } = event.target;
+
+    setEditForm((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   }
 
-  /* -------------------------------------------------------
+  /* =========================================================
+     SAVE PRODUCT
+     ========================================================= */
+
+  async function handleSaveProduct(event) {
+    event.preventDefault();
+
+    setEditError("");
+
+    const productName =
+      editForm.product_name.trim();
+
+    const categoryId =
+      Number(editForm.category_id);
+
+    const regularPrice =
+      Number(editForm.regular_price);
+
+    const largePrice =
+      Number(editForm.large_price);
+
+    if (!productName) {
+      setEditError(
+        "Product name is required."
+      );
+      return;
+    }
+
+    if (!categoryId || categoryId <= 0) {
+      setEditError(
+        "Please select a category."
+      );
+      return;
+    }
+
+    if (
+      editForm.regular_price === "" ||
+      !Number.isFinite(regularPrice) ||
+      regularPrice < 0
+    ) {
+      setEditError(
+        "Please enter a valid Regular price."
+      );
+      return;
+    }
+
+    if (
+      editForm.large_price === "" ||
+      !Number.isFinite(largePrice) ||
+      largePrice < 0
+    ) {
+      setEditError(
+        "Please enter a valid Large price."
+      );
+      return;
+    }
+
+    try {
+      setSaving(true);
+
+      const response = await fetch(
+        `${API_BASE}/Api/Products/Update.php`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            product_id:
+              Number(editForm.product_id),
+
+            product_name: productName,
+
+            category_id: categoryId,
+
+            description:
+              editForm.description.trim(),
+
+            regular_price: regularPrice,
+
+            large_price: largePrice,
+
+            /*
+             * is_active is the catalog/archive
+             * status only.
+             *
+             * It is NOT product availability.
+             */
+            is_active:
+              Number(editForm.is_active) === 1
+                ? 1
+                : 0,
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message ||
+            "Failed to update product."
+        );
+      }
+
+      setEditingProduct(null);
+      setEditError("");
+
+      await loadProducts();
+    } catch (err) {
+      console.error(
+        "Update product error:",
+        err
+      );
+
+      setEditError(
+        err.message ||
+          "Unable to update product."
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  /* =========================================================
      RENDER
-  ------------------------------------------------------- */
+     ========================================================= */
 
   return (
     <div className="menu-products-page">
-      {/* PAGE HEADER */}
+
+      {/* HEADER */}
 
       <div className="mp-page-header">
-        <div>
-          <div className="mp-eyebrow">PRODUCT CATALOG</div>
 
-          <h1>Menu / Products</h1>
+        <div>
+          <div className="mp-eyebrow">
+            PRODUCT CATALOG
+          </div>
+
+          <h1>
+            Menu & Products
+          </h1>
 
           <p>
-            Manage the complete BigBrew branch menu, pricing, product types,
-            and availability.
+            Manage your products, pricing,
+            categories, and recipes.
           </p>
         </div>
 
-        <div className="mp-product-count">
-          <strong>{products.length}</strong>
-          <span>PRODUCTS</span>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <div className="mp-product-count">
+            <strong>
+              {filteredProducts.length}
+            </strong>
+
+            <span>
+              PRODUCTS
+            </span>
+          </div>
+
+          <button
+            type="button"
+            className="mp-add-product-button"
+            onClick={() =>
+              setShowAddProduct(true)
+            }
+          >
+            <span className="mp-add-product-plus">
+              +
+            </span>
+
+            Add Product
+          </button>
         </div>
+
       </div>
 
       {/* MAIN CARD */}
 
       <div className="mp-card">
+
         {/* TOOLBAR */}
 
         <div className="mp-toolbar">
+
           <div className="mp-search-wrapper">
-            <span className="mp-search-icon">⌕</span>
+
+            <span className="mp-search-icon">
+              ⌕
+            </span>
 
             <input
               type="text"
               placeholder="Search products..."
               value={search}
-              onChange={(event) => setSearch(event.target.value)}
+              onChange={(event) =>
+                setSearch(
+                  event.target.value
+                )
+              }
             />
+
           </div>
 
           <select
-            value={category}
-            onChange={(event) => setCategory(event.target.value)}
             className="mp-select"
+            value={selectedCategory}
+            onChange={(event) =>
+              setSelectedCategory(
+                event.target.value
+              )
+            }
+            disabled={categoryLoading}
           >
-            {categories.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
+            <option value="all">
+              All Categories
+            </option>
+
+            {categories.map(
+              (category) => (
+                <option
+                  key={
+                    category.category_id
+                  }
+                  value={
+                    category.category_id
+                  }
+                >
+                  {
+                    category.category_name
+                  }
+                </option>
+              )
+            )}
           </select>
 
           <select
-            value={availability}
-            onChange={(event) => setAvailability(event.target.value)}
             className="mp-select"
+            value={availabilityFilter}
+            onChange={(event) =>
+              setAvailabilityFilter(
+                event.target.value
+              )
+            }
           >
-            <option>All availability</option>
-            <option>Available</option>
-            <option>Unavailable</option>
+            <option value="all">
+              All Availability
+            </option>
+
+            <option value="available">
+              Available
+            </option>
+
+            <option value="unavailable">
+              Unavailable
+            </option>
           </select>
+
         </div>
+
+        {/* CATEGORY ERROR */}
+
+        {categoryError && (
+          <div
+            style={{
+              margin: "0 20px 14px",
+              padding: "10px 12px",
+              borderRadius: "8px",
+              background: "#fff3ef",
+              color: "#a24f47",
+              fontSize: "13px",
+            }}
+          >
+            {categoryError}
+          </div>
+        )}
 
         {/* RESULT SUMMARY */}
 
-        <div className="mp-result-summary">
-          Showing <strong>{filteredProducts.length}</strong> of{" "}
-          <strong>{products.length}</strong> products
-        </div>
+        {!loading && (
+          <div className="mp-result-summary">
+            Showing{" "}
+            <strong>
+              {filteredProducts.length}
+            </strong>{" "}
+            of{" "}
+            <strong>
+              {products.length}
+            </strong>{" "}
+            products
+          </div>
+        )}
 
-        {/* TABLE */}
+        {/* ERROR */}
 
-        <div className="mp-table-wrapper">
-          <table className="mp-table">
-            <thead>
-              <tr>
-                <th className="mp-product-column">PRODUCT</th>
-                <th>CATEGORY</th>
-                <th>TYPE</th>
-                <th>REGULAR / HOT</th>
-                <th>LARGE</th>
-                <th>AVAILABILITY</th>
-                <th className="mp-action-column">ACTION</th>
-              </tr>
-            </thead>
+        {error && (
+          <div
+            style={{
+              margin: "0 20px 16px",
+              padding: "11px 13px",
+              borderRadius: "8px",
+              background: "#fff3ef",
+              color: "#a24f47",
+              fontSize: "13px",
+            }}
+          >
+            {error}
+          </div>
+        )}
 
-            <tbody>
-              {filteredProducts.map((product) => (
-                <tr key={product.id}>
-                  {/* PRODUCT */}
+        {/* LOADING */}
 
-                  <td>
-                    <div className="mp-product-cell">
-                      <ProductIcon category={product.category} />
+        {loading ? (
+          <div className="mp-empty">
 
-                      <div>
-                        <strong>{product.name}</strong>
-                      </div>
-                    </div>
-                  </td>
-
-                  {/* CATEGORY */}
-
-                  <td>
-                    <span className="mp-category-text">
-                      {product.category}
-                    </span>
-                  </td>
-
-                  {/* TYPE */}
-
-                  <td>
-                    <span
-                      className={`mp-type-badge ${
-                        product.type === "Iced Coffee"
-                          ? "iced"
-                          : product.type === "Hot Coffee"
-                            ? "hot"
-                            : ""
-                      }`}
-                    >
-                      {product.type}
-                    </span>
-                  </td>
-
-                  {/* REGULAR */}
-
-                  <td>
-                    <strong className="mp-price">
-                      {peso(product.regular)}
-                    </strong>
-                  </td>
-
-                  {/* LARGE */}
-
-                  <td>
-                    <strong className="mp-price">
-                      {peso(product.large)}
-                    </strong>
-                  </td>
-
-                  {/* AVAILABILITY */}
-
-                  <td>
-                    <button
-                      type="button"
-                      className={`mp-availability ${
-                        product.available ? "available" : "unavailable"
-                      }`}
-                      onClick={() => toggleAvailability(product.id)}
-                    >
-                      <span className="mp-status-dot" />
-
-                      {product.available ? "AVAILABLE" : "UNAVAILABLE"}
-                    </button>
-                  </td>
-
-                  {/* ACTION */}
-
-                  <td>
-                    <button
-                      type="button"
-                      className="mp-edit-button"
-                      onClick={() => openPriceEditor(product)}
-                    >
-                      Edit price
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* EMPTY RESULT */}
-
-          {filteredProducts.length === 0 && (
-            <div className="mp-empty">
-              <div className="mp-empty-icon">⌕</div>
-
-              <h3>No products found</h3>
-
-              <p>
-                Try changing your search or selecting a different category.
-              </p>
+            <div className="mp-empty-icon">
+              ⏳
             </div>
-          )}
-        </div>
+
+            <h3>
+              Loading products...
+            </h3>
+
+            <p>
+              Please wait while the
+              product catalog is loaded.
+            </p>
+
+          </div>
+        ) : filteredProducts.length ===
+          0 ? (
+          <div className="mp-empty">
+
+            <div className="mp-empty-icon">
+              ☕
+            </div>
+
+            <h3>
+              No products found
+            </h3>
+
+            <p>
+              Try changing your search
+              or filter.
+            </p>
+
+          </div>
+        ) : (
+
+          /* TABLE */
+
+          <div className="mp-table-wrapper">
+
+            <table className="mp-table">
+
+              <thead>
+                <tr>
+                  <th>
+                    PRODUCT
+                  </th>
+
+                  <th>
+                    CATEGORY
+                  </th>
+
+                  <th>
+                    SIZE
+                  </th>
+
+                  <th>
+                    REGULAR
+                  </th>
+
+                  <th>
+                    LARGE
+                  </th>
+
+                  <th>
+                    AVAILABILITY
+                  </th>
+
+                  <th>
+                    ACTION
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                {filteredProducts.map(
+                  (product) => {
+
+    const regularSize =
+      (product.sizes || []).find(
+        (size) =>
+          String(size.sizeName || "")
+            .toLowerCase() === "regular"
+      );
+
+    const largeSize =
+      (product.sizes || []).find(
+        (size) =>
+          String(size.sizeName || "")
+            .toLowerCase() === "large"
+      );
+
+    const regularAvailable =
+      regularSize?.available === true;
+
+    const largeAvailable =
+      largeSize?.available === true;
+
+                    return (
+                      <tr
+                        key={
+                          product.product_id
+                        }
+                      >
+
+                        {/* PRODUCT */}
+
+                        <td>
+
+                          <div className="mp-product-cell">
+
+                            <div className="mp-product-icon">
+                              <span>
+                                ☕
+                              </span>
+                            </div>
+
+                            <div>
+                              <strong>
+                                {
+                                  product.product_name
+                                }
+                              </strong>
+                            </div>
+
+                          </div>
+
+                        </td>
+
+                        {/* CATEGORY */}
+
+                        <td>
+
+                          <span className="mp-category-text">
+                            {
+                              product.category_name ||
+                              "Uncategorized"
+                            }
+                          </span>
+
+                        </td>
+
+                        {/* SIZE */}
+
+                        <td>
+
+                          <span className="mp-type-badge">
+                            Regular, Large
+                          </span>
+
+                        </td>
+
+                        {/* REGULAR */}
+
+                        <td>
+
+                          <div
+                            style={{
+                              display:
+                                "flex",
+                              flexDirection:
+                                "column",
+                              gap: "4px",
+                            }}
+                          >
+
+                            <span className="mp-price">
+                              ₱
+                              {Number(
+                                product.regular_price ||
+                                  0
+                              ).toFixed(2)}
+                            </span>
+
+                            <span
+                              style={{
+                                fontSize:
+                                  "10px",
+                                fontWeight:
+                                  800,
+                                color:
+                                  regularAvailable
+                                    ? "#378052"
+                                    : "#a24f47",
+                              }}
+                            >
+                              {regularAvailable
+                                ? "Available"
+                                : "Unavailable"}
+                            </span>
+
+                          </div>
+
+                        </td>
+
+                        {/* LARGE */}
+
+                        <td>
+
+                          <div
+                            style={{
+                              display:
+                                "flex",
+                              flexDirection:
+                                "column",
+                              gap: "4px",
+                            }}
+                          >
+
+                            <span className="mp-price">
+                              ₱
+                              {Number(
+                                product.large_price ||
+                                  0
+                              ).toFixed(2)}
+                            </span>
+
+                            <span
+                              style={{
+                                fontSize:
+                                  "10px",
+                                fontWeight:
+                                  800,
+                                color:
+                                  largeAvailable
+                                    ? "#378052"
+                                    : "#a24f47",
+                              }}
+                            >
+                              {largeAvailable
+                                ? "Available"
+                                : "Unavailable"}
+                            </span>
+
+                          </div>
+
+                        </td>
+
+                        {/* OVERALL AVAILABILITY */}
+
+                        <td>
+
+                          <span
+                            className={`mp-availability ${
+                              product.available
+                                ? "available"
+                                : "unavailable"
+                            }`}
+                            style={{
+                              cursor:
+                                "default",
+                            }}
+                          >
+
+                            <span className="mp-status-dot" />
+
+                            {product.available
+                              ? "Available"
+                              : "Unavailable"}
+
+                          </span>
+
+                        </td>
+
+                        {/* ACTION */}
+
+                        <td>
+
+                          <button
+                            type="button"
+                            className="mp-edit-button"
+                            onClick={() =>
+                              openEditProduct(
+                                product
+                              )
+                            }
+                          >
+                            Edit
+                          </button>
+
+                        </td>
+
+                      </tr>
+                    );
+                  }
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        )}
+
       </div>
 
-      {/* PRICE MODAL */}
+      {/* ADD PRODUCT */}
+
+      {showAddProduct && (
+        <AddProduct
+          categories={categories}
+          onClose={() =>
+            setShowAddProduct(false)
+          }
+          onProductCreated={
+            handleProductCreated
+          }
+        />
+      )}
+
+      {/* EDIT PRODUCT MODAL */}
 
       {editingProduct && (
         <div
           className="mp-modal-overlay"
-          onMouseDown={() => setEditingProduct(null)}
+          onMouseDown={closeEditProduct}
         >
+
           <div
             className="mp-modal"
-            onMouseDown={(event) => event.stopPropagation()}
+            onMouseDown={(event) =>
+              event.stopPropagation()
+            }
           >
-            <div className="mp-modal-header">
-              <div>
-                <div className="mp-eyebrow">PRICE MANAGEMENT</div>
 
-                <h2>{editingProduct.name}</h2>
+            <div className="mp-modal-header">
+
+              <div>
+
+                <h2>
+                  Edit Product
+                </h2>
 
                 <p>
-                  {editingProduct.category} · {editingProduct.type}
+                  Update product details
+                  and pricing.
                 </p>
+
               </div>
 
               <button
                 type="button"
                 className="mp-close-button"
-                onClick={() => setEditingProduct(null)}
+                onClick={
+                  closeEditProduct
+                }
+                disabled={saving}
               >
                 ×
               </button>
+
             </div>
 
-            <div className="mp-modal-body">
-              <div className="mp-form-group">
-                <label>Regular / Hot Price</label>
+            <form
+              onSubmit={
+                handleSaveProduct
+              }
+            >
 
-                <div className="mp-price-input">
-                  <span>₱</span>
+              <div className="mp-modal-body">
+
+                {/* PRODUCT NAME */}
+
+                <div className="mp-form-group">
+
+                  <label>
+                    Product Name
+                  </label>
 
                   <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    value={editRegular}
-                    onChange={(event) => setEditRegular(event.target.value)}
+                    type="text"
+                    name="product_name"
+                    value={
+                      editForm.product_name
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                    disabled={saving}
                   />
+
                 </div>
+
+                {/* CATEGORY */}
+
+                <div className="mp-form-group">
+
+                  <label>
+                    Category
+                  </label>
+
+                  <select
+                    name="category_id"
+                    value={
+                      editForm.category_id
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                    disabled={
+                      saving ||
+                      categoryLoading
+                    }
+                  >
+
+                    <option value="">
+                      Select category
+                    </option>
+
+                    {categories.map(
+                      (category) => (
+                        <option
+                          key={
+                            category.category_id
+                          }
+                          value={
+                            category.category_id
+                          }
+                        >
+                          {
+                            category.category_name
+                          }
+                        </option>
+                      )
+                    )}
+
+                  </select>
+
+                </div>
+
+                {/* DESCRIPTION */}
+
+                <div className="mp-form-group">
+
+                  <label>
+                    Description
+                  </label>
+
+                  <textarea
+                    name="description"
+                    value={
+                      editForm.description
+                    }
+                    onChange={
+                      handleEditChange
+                    }
+                    placeholder="Enter product description"
+                    disabled={saving}
+                  />
+
+                </div>
+
+                {/* PRICES */}
+
+                <div className="mp-edit-price-grid">
+
+                  <div className="mp-form-group">
+
+                    <label>
+                      Regular Price
+                    </label>
+
+                    <div className="mp-price-input">
+
+                      <span>
+                        ₱
+                      </span>
+
+                      <input
+                        type="number"
+                        name="regular_price"
+                        min="0"
+                        step="0.01"
+                        value={
+                          editForm.regular_price
+                        }
+                        onChange={
+                          handleEditChange
+                        }
+                        disabled={saving}
+                      />
+
+                    </div>
+
+                  </div>
+
+                  <div className="mp-form-group">
+
+                    <label>
+                      Large Price
+                    </label>
+
+                    <div className="mp-price-input">
+
+                      <span>
+                        ₱
+                      </span>
+
+                      <input
+                        type="number"
+                        name="large_price"
+                        min="0"
+                        step="0.01"
+                        value={
+                          editForm.large_price
+                        }
+                        onChange={
+                          handleEditChange
+                        }
+                        disabled={saving}
+                      />
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                {/* CATALOG STATUS */}
+
+                <div className="mp-edit-status">
+
+                  <div>
+
+                    <strong>
+                      Product Catalog Status
+                    </strong>
+
+                    <p>
+                      Archive this product
+                      if it should no longer
+                      appear in the active
+                      catalog.
+                    </p>
+
+                  </div>
+
+                  <span
+                    className={`mp-status-toggle ${
+                      Number(
+                        editForm.is_active
+                      ) === 1
+                        ? "active"
+                        : ""
+                    }`}
+                    style={{
+                      display:
+                        "inline-flex",
+                      alignItems:
+                        "center",
+                      justifyContent:
+                        "center",
+                      cursor:
+                        "default",
+                    }}
+                  >
+
+                    <span className="mp-status-toggle-dot" />
+
+                    {Number(
+                      editForm.is_active
+                    ) === 1
+                      ? "Active"
+                      : "Archived"}
+
+                  </span>
+
+                </div>
+
+                {/* ERROR */}
+
+                {editError && (
+                  <div
+                    style={{
+                      padding:
+                        "10px 12px",
+                      borderRadius:
+                        "8px",
+                      background:
+                        "#fff3ef",
+                      color:
+                        "#a24f47",
+                      fontSize:
+                        "13px",
+                    }}
+                  >
+                    {editError}
+                  </div>
+                )}
+
               </div>
 
-              <div className="mp-form-group">
-                <label>Large Price</label>
+              {/* FOOTER */}
 
-                <div className="mp-price-input">
-                  <span>₱</span>
+              <div className="mp-modal-footer">
 
-                  <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    value={editLarge}
-                    onChange={(event) => setEditLarge(event.target.value)}
-                  />
-                </div>
+                <button
+                  type="button"
+                  className="mp-cancel-button"
+                  onClick={
+                    closeEditProduct
+                  }
+                  disabled={saving}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  className="mp-save-button"
+                  disabled={saving}
+                >
+                  {saving
+                    ? "Saving..."
+                    : "Save Changes"}
+                </button>
+
               </div>
-            </div>
 
-            <div className="mp-modal-footer">
-              <button
-                type="button"
-                className="mp-cancel-button"
-                onClick={() => setEditingProduct(null)}
-              >
-                Cancel
-              </button>
+            </form>
 
-              <button
-                type="button"
-                className="mp-save-button"
-                onClick={savePrice}
-              >
-                Save price
-              </button>
-            </div>
           </div>
+
         </div>
       )}
+
     </div>
   );
 }

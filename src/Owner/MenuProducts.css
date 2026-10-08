@@ -1,7 +1,13 @@
 /* =========================================================
    BIGBREW SMART OPERATIONS
    MENU / PRODUCTS
+
    Warm beige / coffee theme
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
    ========================================================= */
 
 .menu-products-page {
@@ -9,6 +15,7 @@
   min-height: 100%;
   color: #35251f;
 }
+
 
 /* =========================================================
    PAGE HEADER
@@ -48,6 +55,11 @@
   line-height: 1.6;
 }
 
+
+/* =========================================================
+   PRODUCT COUNT
+   ========================================================= */
+
 .mp-product-count {
   display: flex;
   align-items: center;
@@ -71,6 +83,7 @@
   letter-spacing: 0.08em;
 }
 
+
 /* =========================================================
    MAIN CARD
    ========================================================= */
@@ -83,6 +96,7 @@
   background: #fffdfa;
   box-shadow: 0 10px 30px rgba(72, 46, 28, 0.04);
 }
+
 
 /* =========================================================
    TOOLBAR
@@ -157,6 +171,7 @@
   border-color: #c47a2c;
 }
 
+
 /* =========================================================
    RESULT SUMMARY
    ========================================================= */
@@ -171,6 +186,7 @@
   color: #35251f;
   font-weight: 800;
 }
+
 
 /* =========================================================
    TABLE
@@ -222,7 +238,10 @@
   background: #fcf5eb;
 }
 
-/* COLUMN WIDTHS */
+
+/* =========================================================
+   COLUMN WIDTHS
+   ========================================================= */
 
 .mp-table th:nth-child(1),
 .mp-table td:nth-child(1) {
@@ -258,6 +277,7 @@
 .mp-table td:nth-child(7) {
   width: 9%;
 }
+
 
 /* =========================================================
    PRODUCT CELL
@@ -302,6 +322,7 @@
   line-height: 1;
 }
 
+
 /* =========================================================
    CATEGORY
    ========================================================= */
@@ -310,6 +331,7 @@
   color: #756358;
   font-size: 14px;
 }
+
 
 /* =========================================================
    TYPE BADGES
@@ -341,6 +363,7 @@
   color: #a46030;
 }
 
+
 /* =========================================================
    PRICE
    ========================================================= */
@@ -350,6 +373,7 @@
   font-size: 14px;
   font-weight: 800;
 }
+
 
 /* =========================================================
    AVAILABILITY
@@ -387,6 +411,7 @@
   background: currentColor;
 }
 
+
 /* =========================================================
    ACTION
    ========================================================= */
@@ -415,6 +440,7 @@
 .mp-edit-button:active {
   transform: translateY(1px);
 }
+
 
 /* =========================================================
    EMPTY STATE
@@ -455,8 +481,9 @@
   font-size: 14px;
 }
 
+
 /* =========================================================
-   PRICE MODAL
+   EDIT PRODUCT MODAL
    ========================================================= */
 
 .mp-modal-overlay {
@@ -472,13 +499,19 @@
 }
 
 .mp-modal {
-  width: min(500px, 100%);
-  overflow: hidden;
+  width: min(560px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   border: 1px solid #eadbc9;
   border-radius: 18px;
   background: #fffdfa;
   box-shadow: 0 24px 70px rgba(48, 30, 20, 0.22);
 }
+
+
+/* =========================================================
+   MODAL HEADER
+   ========================================================= */
 
 .mp-modal-header {
   display: flex;
@@ -506,6 +539,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 auto;
   width: 34px;
   height: 34px;
   border: 0;
@@ -515,17 +549,33 @@
   font-size: 23px;
   line-height: 1;
   cursor: pointer;
+  transition: background 0.15s ease;
 }
 
 .mp-close-button:hover {
   background: #f0dfca;
 }
 
+.mp-close-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MODAL BODY
+   ========================================================= */
+
 .mp-modal-body {
   display: grid;
   gap: 18px;
   padding: 24px;
 }
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
 
 .mp-form-group {
   display: grid;
@@ -538,14 +588,84 @@
   font-weight: 750;
 }
 
+.mp-form-group input,
+.mp-form-group select,
+.mp-form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ddcdbb;
+  border-radius: 9px;
+  outline: none;
+  background: #ffffff;
+  color: #35251f;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.mp-form-group input,
+.mp-form-group select {
+  height: 46px;
+  padding: 0 13px;
+}
+
+.mp-form-group textarea {
+  min-height: 88px;
+  padding: 12px 13px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.mp-form-group input::placeholder,
+.mp-form-group textarea::placeholder {
+  color: #b0a095;
+}
+
+.mp-form-group input:focus,
+.mp-form-group select:focus,
+.mp-form-group textarea:focus {
+  border-color: #c47a2c;
+  box-shadow: 0 0 0 3px rgba(196, 122, 44, 0.1);
+}
+
+.mp-form-group input:disabled,
+.mp-form-group select:disabled,
+.mp-form-group textarea:disabled {
+  background: #f6f2ed;
+  color: #9a8c82;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   EDIT PRICE GRID
+   ========================================================= */
+
+.mp-edit-price-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+
+/* =========================================================
+   PRICE INPUT
+   ========================================================= */
+
 .mp-price-input {
   display: flex;
   align-items: center;
   height: 46px;
+  box-sizing: border-box;
   border: 1px solid #ddcdbb;
   border-radius: 9px;
   background: #ffffff;
   overflow: hidden;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .mp-price-input span {
@@ -568,10 +688,109 @@
   font-weight: 700;
 }
 
+.mp-price-input input:disabled {
+  cursor: not-allowed;
+}
+
 .mp-price-input:focus-within {
   border-color: #c47a2c;
   box-shadow: 0 0 0 3px rgba(196, 122, 44, 0.1);
 }
+
+
+/* =========================================================
+   PRODUCT STATUS SECTION
+   ========================================================= */
+
+.mp-edit-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 2px;
+  padding: 14px;
+  border: 1px solid #eadbc9;
+  border-radius: 10px;
+  background: #faf5ee;
+}
+
+.mp-edit-status strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #58463b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.mp-edit-status p {
+  margin: 0;
+  color: #927e70;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   STATUS TOGGLE
+   ========================================================= */
+
+.mp-status-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  min-width: 108px;
+  height: 34px;
+  padding: 0 11px;
+  border: 1px solid #dfe3e8;
+  border-radius: 8px;
+  background: #f4f5f6;
+  color: #69727d;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.mp-status-toggle:hover {
+  background: #eceef0;
+}
+
+.mp-status-toggle.active {
+  border-color: #cfe4d6;
+  background: #f0f8f2;
+  color: #2f7d45;
+}
+
+.mp-status-toggle.active:hover {
+  background: #e6f4e9;
+}
+
+.mp-status-toggle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9aa2aa;
+}
+
+.mp-status-toggle.active .mp-status-toggle-dot {
+  background: #3d9b58;
+}
+
+.mp-status-toggle:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
 
 .mp-modal-footer {
   display: flex;
@@ -591,12 +810,21 @@
   font-size: 13px;
   font-weight: 750;
   cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease,
+    transform 0.15s ease;
 }
 
 .mp-cancel-button {
   border: 1px solid #dfd0bf;
   background: #ffffff;
   color: #6d5a4d;
+}
+
+.mp-cancel-button:hover {
+  background: #f7f2ed;
 }
 
 .mp-save-button {
@@ -609,14 +837,72 @@
   background: #8f5222;
 }
 
+.mp-save-button:active,
+.mp-cancel-button:active {
+  transform: translateY(1px);
+}
+
+.mp-cancel-button:disabled,
+.mp-save-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   ADD PRODUCT BUTTON
+   ========================================================= */
+
+.mp-add-product-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 9px;
+  background: #8a5a2b;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.mp-add-product-button:hover {
+  background: #754b23;
+  box-shadow: 0 4px 12px rgba(117, 75, 35, 0.16);
+}
+
+.mp-add-product-button:active {
+  transform: translateY(1px);
+}
+
+.mp-add-product-plus {
+  font-size: 19px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
 @media (max-width: 900px) {
+
   .mp-page-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .mp-page-header > div:last-child {
+    width: 100%;
   }
 
   .mp-product-count {
@@ -637,7 +923,9 @@
   }
 }
 
+
 @media (max-width: 600px) {
+
   .mp-page-header h1 {
     font-size: 34px;
   }
@@ -664,8 +952,26 @@
     padding-right: 12px;
   }
 
+  .mp-page-header > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .mp-add-product-button {
+    flex: 1;
+    min-width: 140px;
+  }
+
   .mp-modal-overlay {
+    align-items: center;
     padding: 14px;
+  }
+
+  .mp-modal {
+    max-height: calc(100vh - 28px);
+    border-radius: 14px;
   }
 
   .mp-modal-header,
@@ -675,5 +981,28 @@
 
   .mp-modal-footer {
     padding: 14px 18px;
+  }
+
+  .mp-edit-price-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .mp-edit-status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mp-status-toggle {
+    width: 100%;
+  }
+
+  .mp-modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .mp-cancel-button,
+  .mp-save-button {
+    width: 100%;
   }
 }

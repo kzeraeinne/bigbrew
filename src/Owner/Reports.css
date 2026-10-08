@@ -1,0 +1,272 @@
+/* =========================================
+   BIGBREW SMART OPERATIONS
+   REPORTS
+   Warm Beige / Brown Theme
+========================================= */
+
+.reports-page {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+
+  padding: 36px 40px 50px;
+
+  background: #f7f0e5;
+  color: #3d2b20;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.reports-eyebrow {
+  margin-bottom: 9px;
+
+  color: #a56d32;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.reports-header h1 {
+  margin: 0;
+
+  color: #3b281e;
+
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.reports-header p {
+  margin: 12px 0 0;
+
+  color: #8a7160;
+
+  font-size: 16px;
+}
+
+/* =========================================
+   BRANCH BADGE
+========================================= */
+
+.reports-branch {
+  min-width: 215px;
+
+  padding: 15px 18px;
+
+  background: #fffaf4;
+
+  border: 1px solid #eadac6;
+  border-radius: 13px;
+
+  box-shadow: 0 6px 20px rgba(80, 52, 30, 0.05);
+}
+
+.reports-branch span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #a08773;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.reports-branch strong {
+  color: #5a3d2a;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   REPORT GRID
+========================================= */
+
+.reports-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+/* =========================================
+   REPORT CARD
+========================================= */
+
+.report-card {
+  min-height: 220px;
+
+  padding: 27px;
+
+  box-sizing: border-box;
+
+  background: #fffaf5;
+
+  border: 1px solid #eadac6;
+  border-radius: 17px;
+
+  box-shadow:
+    0 7px 22px rgba(83, 54, 30, 0.045);
+
+  display: flex;
+  flex-direction: column;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.report-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #dcc4a9;
+
+  box-shadow:
+    0 11px 28px rgba(83, 54, 30, 0.08);
+}
+
+/* =========================================
+   REPORT ICON
+========================================= */
+
+.report-icon {
+  width: 48px;
+  height: 48px;
+
+  margin-bottom: 22px;
+
+  border-radius: 13px;
+
+  background: #f3e3cf;
+
+  color: #a9662d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+  font-weight: 800;
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.report-card h2 {
+  margin: 0 0 8px;
+
+  color: #3d2b20;
+
+  font-size: 18px;
+  line-height: 1.3;
+
+  font-weight: 800;
+}
+
+.report-card p {
+  margin: 0;
+
+  color: #9a8170;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   EXPORT BUTTON
+========================================= */
+
+.export-button {
+  align-self: flex-start;
+
+  margin-top: auto;
+  padding-top: 22px;
+
+  border: none;
+  background: transparent;
+
+  color: #9a5f28;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  transition: color 0.18s ease;
+}
+
+.export-button:hover {
+  color: #754619;
+}
+
+.download-symbol {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1200px) {
+  .reports-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 850px) {
+  .reports-page {
+    padding: 28px 22px 40px;
+  }
+
+  .reports-header {
+    flex-direction: column;
+  }
+
+  .reports-branch {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 600px) {
+  .reports-page {
+    padding: 22px 16px 35px;
+  }
+
+  .reports-header h1 {
+    font-size: 32px;
+  }
+
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-card {
+    min-height: 205px;
+  }
+}

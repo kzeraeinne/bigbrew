@@ -1,0 +1,570 @@
+/* =========================================================
+   BIGBREW SMART OPERATIONS
+   CASHIER-BARISTA DASHBOARD
+   Warm BigBrew Theme
+   ========================================================= */
+
+.cashier-dashboard {
+  width: 100%;
+  max-width: 100%;
+  color: #35261f;
+}
+
+
+/* =========================================================
+   WELCOME HEADER
+   ========================================================= */
+
+.cashier-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 32px;
+}
+
+.cashier-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #a88d79;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.cashier-welcome h2 {
+  margin: 0;
+  font-size: 38px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: #35261f;
+}
+
+.cashier-welcome h2 span {
+  color: #d28a2e;
+  font-size: 30px;
+}
+
+.cashier-welcome p {
+  margin: 10px 0 0;
+  font-size: 16px;
+  color: #927d70;
+}
+
+.cashier-header-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.cashier-primary-button,
+.cashier-secondary-button {
+  border: 1px solid #dfd0c2;
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transition: all 0.2s ease;
+}
+
+.cashier-primary-button {
+  background: #c87922;
+  color: #fffaf5;
+  border-color: #c87922;
+  box-shadow: 0 5px 14px rgba(148, 91, 36, 0.16);
+}
+
+.cashier-primary-button:hover {
+  background: #b66b1b;
+  transform: translateY(-1px);
+}
+
+.cashier-secondary-button {
+  background: #fffdf9;
+  color: #59463b;
+}
+
+.cashier-secondary-button:hover {
+  background: #f8eee3;
+  border-color: #d2bca8;
+}
+
+
+/* =========================================================
+   QUICK ACTION CARDS
+   ========================================================= */
+
+.cashier-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.cashier-quick-card {
+  min-height: 150px;
+  background: #fffdf9;
+  border: 1px solid #eadfd4;
+  border-radius: 18px;
+  padding: 24px;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 4px 16px rgba(83, 56, 37, 0.035);
+  transition: all 0.2s ease;
+}
+
+.cashier-quick-card:hover {
+  border-color: #d6b89d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(83, 56, 37, 0.08);
+}
+
+.cashier-quick-icon,
+.cashier-stat-icon,
+.cashier-alert-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cashier-quick-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  font-size: 26px;
+}
+
+.cashier-quick-icon.blue,
+.cashier-stat-icon.blue,
+.cashier-alert-icon.blue {
+  background: #f0e5d6;
+  color: #a96729;
+}
+
+.cashier-quick-icon.orange,
+.cashier-stat-icon.orange,
+.cashier-alert-icon.orange {
+  background: #faead4;
+  color: #c47b25;
+}
+
+.cashier-quick-icon.green {
+  background: #e6f0e6;
+  color: #5c8a63;
+}
+
+.cashier-quick-content {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cashier-quick-content strong {
+  font-size: 17px;
+  color: #35261f;
+}
+
+.cashier-quick-content span {
+  font-size: 13px;
+  color: #9b887b;
+}
+
+.cashier-arrow {
+  font-size: 25px;
+  color: #a48d7c;
+}
+
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
+
+.cashier-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.cashier-stat-card {
+  background: #fffdf9;
+  border: 1px solid #eadfd4;
+  border-radius: 17px;
+  padding: 23px;
+  min-height: 150px;
+  box-shadow: 0 4px 16px rgba(83, 56, 37, 0.035);
+}
+
+.cashier-stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #826e61;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cashier-stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  font-size: 19px;
+}
+
+.cashier-stat-icon.purple {
+  background: #eee7f2;
+  color: #85669a;
+}
+
+.cashier-stat-icon.red {
+  background: #f8e5df;
+  color: #c56d5d;
+}
+
+.cashier-stat-card > strong {
+  display: block;
+  margin-top: 13px;
+  font-size: 32px;
+  line-height: 1;
+  color: #35261f;
+}
+
+.cashier-stat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 17px;
+  color: #aa9687;
+  font-size: 12px;
+}
+
+.cashier-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 9px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cashier-badge.success {
+  background: #e6f2e8;
+  color: #5b8662;
+}
+
+.cashier-badge.neutral {
+  background: #f1eee9;
+  color: #8b796c;
+}
+
+.cashier-badge.warning {
+  background: #f9ecd9;
+  color: #b87828;
+}
+
+
+/* =========================================================
+   MAIN GRID
+   ========================================================= */
+
+.cashier-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.8fr);
+  gap: 24px;
+}
+
+.cashier-panel {
+  background: #fffdf9;
+  border: 1px solid #eadfd4;
+  border-radius: 18px;
+  padding: 28px;
+  min-height: 430px;
+  box-shadow: 0 4px 16px rgba(83, 56, 37, 0.035);
+}
+
+.cashier-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cashier-panel-header h3 {
+  margin: 0;
+  font-size: 21px;
+  color: #35261f;
+}
+
+.cashier-text-button {
+  border: none;
+  background: transparent;
+  color: #b56d24;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cashier-text-button:hover {
+  color: #8e531b;
+}
+
+
+/* =========================================================
+   SALES OVERVIEW
+   ========================================================= */
+
+.cashier-sales-summary {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.cashier-sales-summary div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cashier-sales-summary div span {
+  color: #9c897c;
+  font-size: 13px;
+}
+
+.cashier-sales-summary strong {
+  font-size: 34px;
+  color: #35261f;
+}
+
+.cashier-sales-summary > span {
+  font-size: 13px;
+  color: #9c897c;
+}
+
+
+/* =========================================================
+   CHART
+   ========================================================= */
+
+.cashier-chart {
+  display: flex;
+  height: 190px;
+  margin-top: 30px;
+}
+
+.cashier-chart-labels {
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 27px;
+  font-size: 11px;
+  color: #b09e91;
+}
+
+.cashier-chart-area {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  align-items: end;
+  border-bottom: 1px solid #eadfd4;
+  padding: 0 10px;
+}
+
+.cashier-chart-column {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.cashier-chart-bar {
+  width: 42px;
+  height: 4px;
+  border-radius: 5px;
+  background: #d18a38;
+}
+
+.cashier-chart-column span {
+  font-size: 11px;
+  color: #a38e80;
+  padding-bottom: 8px;
+}
+
+
+/* =========================================================
+   SALES FOOTER
+   ========================================================= */
+
+.cashier-sales-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #eee3da;
+  margin-top: 24px;
+  padding-top: 20px;
+  gap: 30px;
+}
+
+.cashier-sales-footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cashier-sales-footer span {
+  font-size: 12px;
+  color: #9e8b7d;
+}
+
+.cashier-sales-footer strong {
+  font-size: 14px;
+  color: #49372e;
+}
+
+
+/* =========================================================
+   PRIORITY CENTER
+   ========================================================= */
+
+.cashier-alert-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #eee3da;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cashier-alert-row:first-of-type {
+  margin-top: 18px;
+}
+
+.cashier-alert-row:last-child {
+  border-bottom: none;
+}
+
+.cashier-alert-row:hover strong {
+  color: #b56d24;
+}
+
+.cashier-alert-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  font-size: 20px;
+}
+
+.cashier-alert-icon.red {
+  background: #fae8e3;
+  color: #c96f60;
+}
+
+.cashier-alert-row > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cashier-alert-row strong {
+  color: #49372e;
+  font-size: 14px;
+}
+
+.cashier-alert-row span {
+  color: #a18e81;
+  font-size: 12px;
+}
+
+.cashier-alert-row b {
+  font-size: 24px;
+  font-weight: 400;
+  color: #b39f91;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .cashier-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cashier-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 850px) {
+
+  .cashier-welcome {
+    flex-direction: column;
+  }
+
+  .cashier-header-actions {
+    width: 100%;
+  }
+
+  .cashier-primary-button,
+  .cashier-secondary-button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .cashier-quick-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .cashier-welcome h2 {
+    font-size: 30px;
+  }
+
+  .cashier-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cashier-header-actions {
+    flex-direction: column;
+  }
+
+  .cashier-panel {
+    padding: 20px;
+  }
+
+  .cashier-sales-footer {
+    grid-template-columns: 1fr;
+  }
+
+}

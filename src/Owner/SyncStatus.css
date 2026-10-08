@@ -1,0 +1,712 @@
+/* =========================================================
+   BIGBREW SMART OPERATIONS
+   OFFLINE / SYNC STATUS
+   Warm Beige / Brown Theme
+   ========================================================= */
+
+.sync-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 34px 32px 60px;
+  box-sizing: border-box;
+  color: #35241c;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.sync-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+
+.sync-eyebrow {
+  margin-bottom: 12px;
+  color: #a96928;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+}
+
+.sync-page-header h1 {
+  margin: 0;
+  color: #35241c;
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+}
+
+.sync-page-header p {
+  max-width: 720px;
+  margin: 12px 0 0;
+  color: #8a7466;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+   ========================================================= */
+
+.sync-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+
+  padding: 10px 15px;
+
+  border: 1px solid #ead7bf;
+  border-radius: 10px;
+
+  background: #fffaf4;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.sync-status-badge.is-online {
+  color: #46764e;
+  background: #edf7ef;
+  border-color: #d6ead9;
+}
+
+.sync-status-badge.is-offline {
+  color: #a96726;
+  background: #fff4e6;
+  border-color: #efd7b6;
+}
+
+.sync-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+
+/* =========================================================
+   METRIC CARDS
+   ========================================================= */
+
+.sync-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.sync-metric-card {
+  min-height: 138px;
+  padding: 24px;
+  box-sizing: border-box;
+
+  border: 1px solid #eadbc9;
+  border-radius: 16px;
+
+  background: #fffaf5;
+
+  box-shadow: 0 7px 24px rgba(76, 48, 27, 0.04);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sync-metric-label {
+  margin-bottom: 13px;
+  color: #a18b7c;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sync-metric-card strong {
+  color: #35241c;
+  font-size: 27px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.sync-metric-card strong.not-connected {
+  font-size: 23px;
+  color: #a64e3d;
+}
+
+.sync-metric-card strong.connected {
+  color: #46764e;
+}
+
+.sync-metric-card strong.checking {
+  color: #a96928;
+}
+
+.sync-metric-card strong.offline {
+  color: #a96726;
+}
+
+.sync-metric-card small {
+  margin-top: 7px;
+  color: #a08c7f;
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   WARNING
+   ========================================================= */
+
+.sync-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+
+  margin-bottom: 24px;
+  padding: 18px 20px;
+
+  border: 1px solid #ecd4ae;
+  border-radius: 14px;
+
+  background: #fff8ed;
+}
+
+.sync-warning-icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f2dfc1;
+  color: #a96928;
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.sync-warning strong {
+  display: block;
+  margin-bottom: 5px;
+
+  color: #6d4928;
+  font-size: 14px;
+}
+
+.sync-warning p {
+  margin: 0;
+
+  color: #8a705b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.sync-warning small {
+  display: block;
+  margin-top: 7px;
+
+  color: #a08c7f;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SUCCESS CONNECTION STATUS
+   ========================================================= */
+
+.sync-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+
+  margin-bottom: 24px;
+  padding: 18px 20px;
+
+  border: 1px solid #d6ead9;
+  border-radius: 14px;
+
+  background: #edf7ef;
+}
+
+.sync-success .sync-warning-icon {
+  background: #d9ebdc;
+  color: #46764e;
+}
+
+.sync-success strong {
+  display: block;
+  margin-bottom: 5px;
+
+  color: #46764e;
+  font-size: 14px;
+}
+
+.sync-success p {
+  margin: 0;
+
+  color: #6f8874;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.sync-success small {
+  display: block;
+  margin-top: 7px;
+
+  color: #829487;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   REFRESH CONNECTION
+   ========================================================= */
+
+.sync-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.sync-refresh-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 40px;
+  padding: 10px 16px;
+
+  border: 1px solid #dfc8ad;
+  border-radius: 9px;
+
+  background: #fffdf9;
+  color: #8e5422;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sync-refresh-button:hover:not(:disabled) {
+  background: #f8ecdd;
+  border-color: #cfae88;
+  box-shadow: 0 4px 12px rgba(76, 48, 27, 0.06);
+}
+
+.sync-refresh-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.sync-refresh-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.sync-refresh-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 17px;
+  height: 17px;
+
+  color: currentColor;
+
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.sync-refresh-icon.spinning {
+  animation: sync-spin 0.8s linear infinite;
+}
+
+@keyframes sync-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   LOCAL TRANSACTIONS PANEL
+   ========================================================= */
+
+.sync-transactions-panel {
+  overflow: hidden;
+
+  border: 1px solid #eadbc9;
+  border-radius: 17px;
+
+  background: #fffaf5;
+
+  box-shadow: 0 7px 24px rgba(76, 48, 27, 0.035);
+}
+
+.sync-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 25px 26px;
+
+  border-bottom: 1px solid #eee2d5;
+}
+
+.sync-section-eyebrow {
+  margin-bottom: 7px;
+
+  color: #a96928;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.sync-section-header h2 {
+  margin: 0;
+
+  color: #35241c;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.sync-section-header p {
+  margin: 7px 0 0;
+
+  color: #a08b7d;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CLEAR BUTTON
+   ========================================================= */
+
+.sync-clear-button {
+  flex-shrink: 0;
+
+  padding: 10px 15px;
+
+  border: 1px solid #dfc8ad;
+  border-radius: 9px;
+
+  background: #fffdf9;
+  color: #8e5422;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sync-clear-button:hover {
+  background: #f8ecdd;
+  border-color: #cfae88;
+}
+
+.sync-clear-button:active {
+  transform: translateY(1px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.sync-empty-state {
+  min-height: 330px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+
+  text-align: center;
+}
+
+.sync-empty-icon {
+  width: 66px;
+  height: 66px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 16px;
+
+  background: #f7ead9;
+  color: #c18a4e;
+
+  font-size: 31px;
+  font-weight: 400;
+}
+
+.sync-empty-state h3 {
+  margin: 0;
+
+  color: #3b2a21;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.sync-empty-state p {
+  max-width: 430px;
+  margin: 8px 0 0;
+
+  color: #a08d80;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   OFFLINE ORDERS
+   ========================================================= */
+
+.sync-orders-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sync-order-card {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr auto;
+  align-items: center;
+  gap: 25px;
+
+  padding: 19px 26px;
+
+  border-bottom: 1px solid #eee2d5;
+}
+
+.sync-order-card:last-child {
+  border-bottom: none;
+}
+
+.sync-order-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sync-order-main strong {
+  color: #3b2a21;
+  font-size: 14px;
+}
+
+.sync-order-main span {
+  color: #9b887b;
+  font-size: 12px;
+}
+
+.sync-order-details {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sync-order-details span {
+  color: #987f6c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.sync-order-details strong {
+  color: #513420;
+  font-size: 14px;
+}
+
+.sync-order-details small {
+  color: #a59487;
+  font-size: 11px;
+}
+
+.sync-pending-badge {
+  padding: 7px 10px;
+
+  border-radius: 8px;
+
+  background: #fff0db;
+  color: #a66425;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   INFORMATION CARDS
+   ========================================================= */
+
+.sync-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+
+  margin-top: 20px;
+}
+
+.sync-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+
+  padding: 21px;
+
+  border: 1px solid #eadbc9;
+  border-radius: 15px;
+
+  background: #fffaf5;
+}
+
+.sync-info-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #f5e6d2;
+  color: #a96828;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.sync-info-card h3 {
+  margin: 1px 0 5px;
+
+  color: #3b2a21;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.sync-info-card p {
+  margin: 0;
+
+  color: #927d6e;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .sync-page {
+    padding: 28px 22px 50px;
+  }
+
+  .sync-page-header {
+    flex-direction: column;
+  }
+
+  .sync-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .sync-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sync-order-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sync-order-details {
+    flex-wrap: wrap;
+  }
+
+  .sync-actions {
+    justify-content: flex-start;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .sync-page {
+    padding: 22px 16px 40px;
+  }
+
+  .sync-page-header h1 {
+    font-size: 32px;
+  }
+
+  .sync-page-header p {
+    font-size: 14px;
+  }
+
+  .sync-status-badge {
+    width: fit-content;
+  }
+
+  .sync-section-header {
+    flex-direction: column;
+  }
+
+  .sync-clear-button {
+    width: 100%;
+  }
+
+  .sync-refresh-button {
+    width: 100%;
+  }
+
+  .sync-warning,
+  .sync-success {
+    padding: 16px;
+  }
+
+  .sync-empty-state {
+    min-height: 260px;
+  }
+
+}

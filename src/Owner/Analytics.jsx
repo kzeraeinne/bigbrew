@@ -1,375 +1,1991 @@
-import { useMemo, useState } from "react";
-import "./Ingredients.css";
+import { useEffect, useMemo, useState } from "react";
+import "./Analytics.css";
 
-const INGREDIENTS = [
-  ["Blueberry Flavor", "Fruit Tea Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.12", "2026-12-04", "2 products"],
-  ["Brosty Base", "Brosty Components", "3500 / 3500 ml", "500 / 750 ml", "₱0.06", "2026-12-04", "8 products"],
-  ["Brusko Coffee Component", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "1 product"],
-  ["Caramel Coffee Component", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "1 product"],
-  ["Caramel Macchiato Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Cheesecake Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Chocolate Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Choco Kisses Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Coffee Jelly", "Toppings / Add-ons", "750 / 750 g", "150 / 225 g", "₱0.08", "2026-12-04", "0 products"],
-  ["Coffee / Espresso", "Coffee Components", "5000 / 5000 g", "500 / 750 g", "₱0.18", "2026-12-04", "9 products"],
-  ["Cookies & Cream Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Cream Cheese", "Toppings / Add-ons", "750 / 750 g", "150 / 225 g", "₱0.10", "2026-12-04", "0 products"],
-  ["Cream Puff", "Toppings / Add-ons", "750 / 750 g", "150 / 225 g", "₱0.09", "2026-12-04", "0 products"],
-  ["Crushed Oreo", "Toppings / Add-ons", "750 / 750 g", "150 / 225 g", "₱0.09", "2026-12-04", "0 products"],
-  ["Crystal", "Toppings / Add-ons", "750 / 750 g", "150 / 225 g", "₱0.07", "2026-12-04", "0 products"],
-  ["Dark Choco Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Fudge Coffee Component", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "1 product"],
-  ["Green Apple Flavor", "Fruit Tea Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Honey Peach Flavor", "Fruit Tea Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Kiwi Flavor", "Fruit Tea Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Lemon Flavor", "Fruit Tea Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Lychee Flavor", "Fruit Tea Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Mango Flavor", "Fruit Tea Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Matcha Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.14", "2026-12-04", "2 products"],
-  ["Matcha Coffee Component", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.14", "2026-12-04", "1 product"],
-  ["Matcha Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Milk Base", "Milk Tea Bases", "2800 / 2800 g", "400 / 600 g", "₱0.03", "2026-12-04", "20 products"],
-  ["Mocha Coffee Component", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "1 product"],
-  ["Mocha Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Okinawa Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Pearl", "Toppings / Add-ons", "750 / 750 g", "150 / 225 g", "₱0.07", "2026-12-04", "0 products"],
-  ["Red Velvet Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Salted Caramel Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.13", "2026-12-04", "1 product"],
-  ["Spanish Latte Component", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "1 product"],
-  ["Strawberry Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "2 products"],
-  ["Strawberry Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Straws", "Straws", "700 / 700 pcs", "100 / 150 pcs", "₱0.20", "2026-12-04", "48 products"],
-  ["Sugar / Sweetener", "Sweeteners", "3500 / 3500 g", "500 / 750 g", "₱0.02", "2026-12-04", "49 products"],
-  ["Taro Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Taro Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Tea Component", "Milk Tea Bases", "2800 / 2800 g", "400 / 600 g", "₱0.03", "2026-12-04", "20 products"],
-  ["Vanilla Coffee Component", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "1 product"],
-  ["Vanilla Coffee Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Whipped Cream", "Toppings / Add-ons", "750 / 750 g", "150 / 225 g", "₱0.08", "2026-12-04", "0 products"],
-  ["Wintermelon Flavor", "Milk Tea Flavors / Syrups", "900 / 900 ml", "180 / 270 ml", "₱0.12", "2026-12-04", "1 product"],
-  ["Ice", "Ice / Supplies", "12000 / 12000 g", "3000 / 4500 g", "₱0.01", "2026-12-04", "56 products"],
-  ["Cups - Regular", "Packaging Supplies", "1000 / 1000 pcs", "150 / 250 pcs", "₱2.20", "2026-12-04", "56 products"],
-  ["Cups - Large", "Packaging Supplies", "1000 / 1000 pcs", "150 / 250 pcs", "₱2.60", "2026-12-04", "56 products"],
-  ["Cup Seals", "Packaging Supplies", "1000 / 1000 pcs", "150 / 250 pcs", "₱0.85", "2026-12-04", "56 products"],
-  ["Plastic Lids", "Packaging Supplies", "1000 / 1000 pcs", "150 / 250 pcs", "₱0.70", "2026-12-04", "56 products"],
-  ["Napkins", "Packaging Supplies", "2000 / 2000 pcs", "300 / 500 pcs", "₱0.12", "2026-12-04", "56 products"],
-  ["Coffee Cups", "Packaging Supplies", "500 / 500 pcs", "75 / 125 pcs", "₱1.80", "2026-12-04", "8 products"],
-  ["Coffee Lids", "Packaging Supplies", "500 / 500 pcs", "75 / 125 pcs", "₱0.65", "2026-12-04", "8 products"],
-  ["Chocolate Syrup", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "2 products"],
-  ["Caramel Syrup", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "2 products"],
-  ["Vanilla Syrup", "Coffee Flavors / Syrups", "850 / 850 ml", "160 / 240 ml", "₱0.13", "2026-12-04", "2 products"],
-  ["Creamer", "Coffee Components", "3000 / 3000 g", "400 / 600 g", "₱0.05", "2026-12-04", "8 products"],
-  ["Coffee Beans", "Coffee Components", "5000 / 5000 g", "750 / 1000 g", "₱0.22", "2026-12-04", "8 products"],
-  ["Condensed Milk", "Milk Components", "3000 / 3000 g", "400 / 600 g", "₱0.06", "2026-12-04", "20 products"],
-  ["Fresh Milk", "Milk Components", "5000 / 5000 ml", "750 / 1000 ml", "₱0.08", "2026-12-04", "20 products"],
-  ["Water", "Basic Components", "20000 / 20000 ml", "3000 / 5000 ml", "₱0.01", "2026-12-04", "56 products"],
-  ["Cheesecake Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Cookies & Cream Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.15", "2026-12-04", "1 product"],
-  ["Java Chip Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.16", "2026-12-04", "1 product"],
-  ["Creamy Avocado Praf Component", "Praf Components", "850 / 850 g", "160 / 240 g", "₱0.16", "2026-12-04", "1 product"],
-  ["Strawberry Brosty Component", "Brosty Components", "3500 / 3500 ml", "500 / 750 ml", "₱0.06", "2026-12-04", "1 product"],
-  ["Mango Brosty Component", "Brosty Components", "3500 / 3500 ml", "500 / 750 ml", "₱0.06", "2026-12-04", "1 product"],
-  ["Lychee Brosty Component", "Brosty Components", "3500 / 3500 ml", "500 / 750 ml", "₱0.06", "2026-12-04", "1 product"],
-];
+const API_BASE_URL = "https://kzeraeinne.infinityfreeapp.com";
 
-function statusFromStock(value) {
-  const current = Number(value.split("/")[0].trim());
-  const reorder = Number(value.split("/")[1]?.trim() || 0);
+const ANALYTICS_API =
+  `${API_BASE_URL}/Api/Analytics/Dashboard.php`;
 
-  if (current <= 0) return "OUT OF STOCK";
-  if (reorder && current <= reorder) return "LOW STOCK";
-  return "IN STOCK";
+
+function peso(value) {
+  return `₱${Number(value || 0).toLocaleString("en-PH", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }
 
-export default function Ingredients() {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All categories");
-  const [status, setStatus] = useState("All statuses");
-  const [sort, setSort] = useState("Name");
-  const [tab, setTab] = useState("stock");
 
-  const categories = [
-    "All categories",
-    ...new Set(INGREDIENTS.map((item) => item[1])),
+function number(value) {
+  return Number(value || 0).toLocaleString("en-PH");
+}
+
+
+function quantity(value) {
+  return Number(value || 0).toLocaleString("en-PH", {
+    maximumFractionDigits: 3,
+  });
+}
+
+
+function ratio(value) {
+  if (
+    value === null ||
+    value === undefined ||
+    Number(value) <= 0
+  ) {
+    return "INSUFFICIENT DATA";
+  }
+
+  return `${Number(value).toFixed(2)}x`;
+}
+
+
+function days(value) {
+  if (
+    value === null ||
+    value === undefined ||
+    Number(value) <= 0
+  ) {
+    return "INSUFFICIENT DATA";
+  }
+
+  return `${Number(value).toFixed(1)} days`;
+}
+
+
+export default function Analytics() {
+
+  const [activeTab, setActiveTab] =
+    useState("sales");
+
+  const [period, setPeriod] =
+    useState("month");
+
+  const [category, setCategory] =
+    useState("all");
+
+  const [analytics, setAnalytics] =
+    useState(null);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  const [selectedIngredient, setSelectedIngredient] =
+    useState("");
+
+
+  const tabs = [
+    {
+      id: "sales",
+      label: "Sales Analysis",
+    },
+    {
+      id: "inventory",
+      label: "Inventory & Demand",
+    },
+    {
+      id: "expenses",
+      label: "Expenses",
+    },
   ];
 
-  const filteredIngredients = useMemo(() => {
-    let data = [...INGREDIENTS];
 
-    if (search.trim()) {
-      const q = search.toLowerCase();
+  /*
+  =========================================================
+  LOAD ANALYTICS
+  =========================================================
+  */
 
-      data = data.filter((item) =>
-        item.join(" ").toLowerCase().includes(q)
+  useEffect(() => {
+
+    let cancelled = false;
+
+
+    async function loadAnalytics() {
+
+      setLoading(true);
+      setError("");
+
+
+      try {
+
+        const params =
+          new URLSearchParams({
+            period,
+            category,
+          });
+
+
+        const response =
+          await fetch(
+            `${ANALYTICS_API}?${params.toString()}`,
+            {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+              },
+            }
+          );
+
+
+        const result =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !result.success
+        ) {
+
+          throw new Error(
+            result?.data?.error ||
+            result?.message ||
+            "Unable to retrieve analytics data."
+          );
+        }
+
+
+        if (!cancelled) {
+
+          setAnalytics(
+            result.data || null
+          );
+        }
+
+      } catch (err) {
+
+        console.error(
+          "Analytics API Error:",
+          err
+        );
+
+
+        if (!cancelled) {
+
+          setError(
+            err?.message ||
+            "Unable to connect to the Analytics database."
+          );
+
+          setAnalytics(null);
+        }
+
+      } finally {
+
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+
+    loadAnalytics();
+
+
+    return () => {
+      cancelled = true;
+    };
+
+  }, [period, category]);
+
+
+  /*
+  =========================================================
+  DATA
+  =========================================================
+  */
+
+  const sales =
+    analytics?.sales || {
+      revenue: 0,
+      orders: 0,
+      quantity_sold: 0,
+      average_order: 0,
+    };
+
+
+  const categories =
+    Array.isArray(
+      analytics?.categories
+    )
+      ? analytics.categories
+      : [];
+
+
+  const salesTrend =
+    Array.isArray(
+      analytics?.sales_trend
+    )
+      ? analytics.sales_trend
+      : [];
+
+
+  const topProducts =
+    Array.isArray(
+      analytics?.top_products
+    )
+      ? analytics.top_products
+      : [];
+
+
+  const salesByCategory =
+    Array.isArray(
+      analytics?.sales_by_category
+    )
+      ? analytics.sales_by_category
+      : [];
+
+
+  const inventory =
+    Array.isArray(
+      analytics?.inventory
+    )
+      ? analytics.inventory
+      : [];
+
+
+  const mostUsedIngredients =
+    Array.isArray(
+      analytics?.most_used_ingredients
+    )
+      ? analytics.most_used_ingredients
+      : [];
+
+
+  const restockingRecommendations =
+    Array.isArray(
+      analytics?.restocking_recommendations
+    )
+      ? analytics.restocking_recommendations
+      : [];
+
+
+  const expenses =
+    analytics?.expenses || {
+      total: 0,
+      records: 0,
+      by_category: [],
+    };
+
+
+  /*
+  =========================================================
+  SELECTED INGREDIENT
+  =========================================================
+  */
+
+  useEffect(() => {
+
+    if (inventory.length === 0) {
+
+      setSelectedIngredient("");
+
+      return;
+    }
+
+
+    const stillExists =
+      inventory.some(
+        (item) =>
+          item.name ===
+          selectedIngredient
+      );
+
+
+    if (!stillExists) {
+
+      setSelectedIngredient(
+        inventory[0].name
       );
     }
 
-    if (category !== "All categories") {
-      data = data.filter((item) => item[1] === category);
-    }
+  }, [
+    inventory,
+    selectedIngredient
+  ]);
 
-    if (status !== "All statuses") {
-      data = data.filter((item) => statusFromStock(item[2]) === status);
-    }
 
-    if (sort === "Name") {
-      data.sort((a, b) => a[0].localeCompare(b[0]));
-    }
+  const selectedInventory =
+    inventory.find(
+      (item) =>
+        item.name ===
+        selectedIngredient
+    ) ||
+    inventory[0] ||
+    null;
 
-    if (sort === "Category") {
-      data.sort((a, b) => a[1].localeCompare(b[1]));
-    }
 
-    return data;
-  }, [search, category, status, sort]);
+  /*
+  =========================================================
+  SALES TREND MAX
+  =========================================================
+  */
 
-  const inStock = INGREDIENTS.filter(
-    (item) => statusFromStock(item[2]) === "IN STOCK"
-  ).length;
+  const maxTrendRevenue =
+    useMemo(() => {
 
-  const lowStock = INGREDIENTS.filter(
-    (item) => statusFromStock(item[2]) === "LOW STOCK"
-  ).length;
+      if (!salesTrend.length) {
+        return 0;
+      }
+
+
+      return Math.max(
+        ...salesTrend.map(
+          (item) =>
+            Number(
+              item.revenue || 0
+            )
+        ),
+        0
+      );
+
+    }, [salesTrend]);
+
+
+  /*
+  =========================================================
+  LOADING
+  =========================================================
+  */
+
+  if (
+    loading &&
+    !analytics
+  ) {
+
+    return (
+      <div className="analytics-page">
+
+        <div className="page-heading">
+
+          <div>
+
+            <div className="eyebrow">
+              BUSINESS INTELLIGENCE
+            </div>
+
+            <h2>
+              Analytics
+            </h2>
+
+            <p>
+              Explore stored branch activity to make better
+              business decisions.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <section className="analytics-panel">
+
+          <div className="analytics-empty">
+
+            <div className="empty-icon">
+              ↻
+            </div>
+
+            <strong>
+              Loading analytics...
+            </strong>
+
+            <span>
+              Retrieving current data from the BigBrew
+              database.
+            </span>
+
+          </div>
+
+        </section>
+
+      </div>
+    );
+  }
+
 
   return (
-    <div className="ingredients-page">
-      <div className="ingredients-heading">
-        <div>
-          <div className="ingredients-eyebrow">STOCK CONTROL</div>
 
-          <h1>Ingredients</h1>
+    <div className="analytics-page">
+
+      {/* =====================================================
+          PAGE HEADER
+          ===================================================== */}
+
+      <div className="page-heading">
+
+        <div>
+
+          <div className="eyebrow">
+            BUSINESS INTELLIGENCE
+          </div>
+
+          <h2>
+            Analytics
+          </h2>
 
           <p>
-            Track every component behind the menu, from individual flavors to
-            cups and ice.
+            Explore stored branch activity to make better
+            business decisions.
           </p>
+
         </div>
 
-        <button className="ingredients-primary-button">
-          <span>+</span>
-          Add ingredient
-        </button>
       </div>
 
-      <div className="ingredients-stat-grid">
-        <div className="ingredients-stat-card">
-          <span>Total ingredients</span>
-          <strong>65</strong>
-        </div>
 
-        <div className="ingredients-stat-card">
-          <span>In stock</span>
-          <strong>{inStock}</strong>
-        </div>
+      {/* =====================================================
+          MAIN ANALYTICS WORKSPACE
+          ===================================================== */}
 
-        <div className="ingredients-stat-card">
-          <span>Low / out of stock</span>
-          <strong>{lowStock}</strong>
-        </div>
+      <section className="analytics-panel">
 
-        <div className="ingredients-stat-card">
-          <span>Expiring soon</span>
-          <strong>0</strong>
-        </div>
 
-        <div className="ingredients-stat-card">
-          <span>Expired</span>
-          <strong>0</strong>
-        </div>
+        {/* ===================================================
+            TABS
+            =================================================== */}
 
-        <div className="ingredients-stat-card">
-          <span>Estimated stock value</span>
-          <strong>₱5,462.00</strong>
-        </div>
-      </div>
+        <div className="analytics-tabs">
 
-      <div className="ingredients-panel">
-        <div className="ingredients-tabs-row">
-          <div className="ingredients-tabs">
-            <button
-              className={tab === "stock" ? "active" : ""}
-              onClick={() => setTab("stock")}
-            >
-              Stock levels
-            </button>
+          {tabs.map((tab) => (
 
             <button
-              className={tab === "expiration" ? "active" : ""}
-              onClick={() => setTab("expiration")}
+              key={tab.id}
+              type="button"
+              className={
+                activeTab === tab.id
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                setActiveTab(tab.id)
+              }
             >
-              Expiration lots
+              {tab.label}
             </button>
 
-            <button
-              className={tab === "movement" ? "active" : ""}
-              onClick={() => setTab("movement")}
-            >
-              Movement history
-            </button>
-          </div>
+          ))}
 
-          <div className="ingredients-search">
-            <span>⌕</span>
-
-            <input
-              type="text"
-              placeholder="Search name, supplier, product..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
         </div>
 
-        <div className="ingredients-filters">
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {categories.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
 
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option>All statuses</option>
-            <option>IN STOCK</option>
-            <option>LOW STOCK</option>
-            <option>OUT OF STOCK</option>
-          </select>
+        {/* ===================================================
+            ERROR
+            =================================================== */}
 
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option>Name</option>
-            <option>Category</option>
-          </select>
-        </div>
+        {error && (
 
-        {tab === "stock" && (
-          <div className="ingredients-table-wrapper">
-            <table className="ingredients-table">
-              <thead>
-                <tr>
-                  <th>INGREDIENT / ID</th>
-                  <th>CATEGORY</th>
-                  <th>AVAILABLE / TOTAL</th>
-                  <th>REORDER / SAFETY</th>
-                  <th>UNIT COST</th>
-                  <th>EXPIRATION</th>
-                  <th>STATUS</th>
-                  <th>LINKED PRODUCTS</th>
-                </tr>
-              </thead>
+          <div className="inline-warning">
 
-              <tbody>
-                {filteredIngredients.map((item, index) => {
-                  const ingredientStatus = statusFromStock(item[2]);
+            Analytics could not be loaded from
+            the database.
 
-                  return (
-                    <tr key={`${item[0]}-${index}`}>
-                      <td>
-                        <div className="ingredient-name">
-                          {item[0]}
-                        </div>
+            <br />
 
-                        <div className="ingredient-id">
-                          ingredient-{index + 1} · {item[1]}
-                        </div>
-                      </td>
+            {error}
 
-                      <td>{item[1]}</td>
-
-                      <td className="strong-cell">
-                        {item[2]}
-                      </td>
-
-                      <td>{item[3]}</td>
-
-                      <td>{item[4]}</td>
-
-                      <td>{item[5]}</td>
-
-                      <td>
-                        <span
-                          className={`ingredient-status ${ingredientStatus
-                            .toLowerCase()
-                            .replaceAll(" ", "-")}`}
-                        >
-                          {ingredientStatus}
-                        </span>
-                      </td>
-
-                      <td>{item[6]}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-
-            {!filteredIngredients.length && (
-              <div className="ingredients-empty">
-                No ingredients match your search or filters.
-              </div>
-            )}
           </div>
+
         )}
 
-        {tab === "expiration" && (
-          <div className="ingredients-empty-panel">
-            <div className="ingredients-empty-icon">◷</div>
-            <strong>No expiration alerts</strong>
-            <span>
-              Ingredients approaching or past their expiration date will
-              appear here.
-            </span>
-          </div>
+
+        {/* ===================================================
+            SALES
+            =================================================== */}
+
+        {activeTab === "sales" && (
+
+          <SalesAnalysis
+
+            period={period}
+            setPeriod={setPeriod}
+
+            category={category}
+            setCategory={setCategory}
+
+            categories={categories}
+
+            sales={sales}
+
+            salesTrend={salesTrend}
+
+            maxTrendRevenue={
+              maxTrendRevenue
+            }
+
+            topProducts={
+              topProducts
+            }
+
+            salesByCategory={
+              salesByCategory
+            }
+
+          />
+
         )}
 
-        {tab === "movement" && (
-          <div className="ingredients-empty-panel">
-            <div className="ingredients-empty-icon">↕</div>
-            <strong>No recent stock movements</strong>
-            <span>
-              Purchases, receiving, sales deductions, waste, and adjustments
-              will appear here.
-            </span>
-          </div>
+
+        {/* ===================================================
+            INVENTORY
+            =================================================== */}
+
+        {activeTab === "inventory" && (
+
+          <InventoryDemand
+
+            inventory={inventory}
+
+            mostUsedIngredients={
+              mostUsedIngredients
+            }
+
+            restockingRecommendations={
+              restockingRecommendations
+            }
+
+            selectedIngredient={
+              selectedIngredient
+            }
+
+            setSelectedIngredient={
+              setSelectedIngredient
+            }
+
+            selectedInventory={
+              selectedInventory
+            }
+
+          />
+
         )}
-      </div>
 
-      <div className="ingredients-bottom-grid">
-        <div className="ingredients-bottom-card">
-          <div className="bottom-eyebrow">STOCK SIGNALS</div>
-          <h3>Ingredients to restock</h3>
 
-          <div className="bottom-empty">
-            <div className="bottom-empty-icon">□</div>
-            <strong>Stock levels healthy</strong>
-            <span>No ingredients currently below reorder level.</span>
-          </div>
-        </div>
+        {/* ===================================================
+            EXPENSES
+            =================================================== */}
 
-        <div className="ingredients-bottom-card">
-          <div className="bottom-eyebrow">ACTIVITY</div>
-          <h3>Recent stock changes</h3>
+        {activeTab === "expenses" && (
 
-          <div className="bottom-empty">
-            <div className="bottom-empty-icon">□</div>
-            <strong>No activity yet</strong>
-            <span>
-              Your first sale, receipt, waste record, or adjustment will
-              appear here.
-            </span>
-          </div>
-        </div>
-      </div>
+          <Expenses
+            sales={sales}
+            expenses={expenses}
+          />
 
-      <p className="ingredients-footer-note">
-        Ingredient records support recipe-based inventory deductions,
-        purchasing, receiving, expiration monitoring, waste recording, and
-        inventory reconciliation.
-      </p>
+        )}
+
+      </section>
+
     </div>
+  );
+}
+
+
+/* =========================================================
+   SALES ANALYSIS
+   ========================================================= */
+
+function SalesAnalysis({
+
+  period,
+  setPeriod,
+
+  category,
+  setCategory,
+
+  categories,
+
+  sales,
+
+  salesTrend,
+  maxTrendRevenue,
+
+  topProducts,
+
+  salesByCategory,
+
+}) {
+
+  return (
+    <>
+
+      {/* ===================================================
+          FILTERS
+          =================================================== */}
+
+      <div className="filter-row">
+
+        <select
+          value={period}
+          onChange={(e) =>
+            setPeriod(e.target.value)
+          }
+        >
+
+          <option value="today">
+            Today
+          </option>
+
+          <option value="week">
+            This Week
+          </option>
+
+          <option value="month">
+            This Month
+          </option>
+
+          <option value="year">
+            This Year
+          </option>
+
+        </select>
+
+
+        <select
+          value={category}
+          onChange={(e) =>
+            setCategory(e.target.value)
+          }
+        >
+
+          <option value="all">
+            All categories
+          </option>
+
+          {categories.map(
+            (item) => (
+
+              <option
+                key={item.id}
+                value={item.name}
+              >
+                {item.name}
+              </option>
+
+            )
+          )}
+
+        </select>
+
+      </div>
+
+
+      {/* ===================================================
+          KPI CARDS
+          =================================================== */}
+
+      <div className="metric-grid compact-metrics">
+
+
+        <div className="metric-card">
+
+          <span>
+            Sales revenue
+          </span>
+
+          <strong>
+            {peso(sales.revenue)}
+          </strong>
+
+        </div>
+
+
+        <div className="metric-card">
+
+          <span>
+            Orders
+          </span>
+
+          <strong>
+            {number(sales.orders)}
+          </strong>
+
+        </div>
+
+
+        <div className="metric-card">
+
+          <span>
+            Quantity sold
+          </span>
+
+          <strong>
+            {number(
+              sales.quantity_sold
+            )}
+          </strong>
+
+        </div>
+
+
+        <div className="metric-card">
+
+          <span>
+            Average order
+          </span>
+
+          <strong>
+
+            {sales.orders > 0
+              ? peso(
+                  sales.average_order
+                )
+              : "INSUFFICIENT DATA"}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      {/* ===================================================
+          SALES TREND + TOP PRODUCTS
+          =================================================== */}
+
+      <div className="analytics-split">
+
+
+        {/* =================================================
+            SALES TREND
+            ================================================= */}
+
+        <section className="inner-panel">
+
+          <h3>
+            Sales trend
+          </h3>
+
+
+          {salesTrend.length === 0 ? (
+
+            <div className="analytics-empty">
+
+              <div className="empty-icon">
+                ▤
+              </div>
+
+              <strong>
+                No sales data available
+              </strong>
+
+              <span>
+                Completed sales will appear here.
+              </span>
+
+            </div>
+
+          ) : (
+
+            <div className="analytics-sales-chart">
+
+              <div className="analytics-chart-y-axis">
+
+                <span>
+                  {peso(
+                    maxTrendRevenue
+                  )}
+                </span>
+
+                <span>
+                  {peso(
+                    maxTrendRevenue *
+                    0.8
+                  )}
+                </span>
+
+                <span>
+                  {peso(
+                    maxTrendRevenue *
+                    0.6
+                  )}
+                </span>
+
+                <span>
+                  {peso(
+                    maxTrendRevenue *
+                    0.4
+                  )}
+                </span>
+
+                <span>
+                  {peso(
+                    maxTrendRevenue *
+                    0.2
+                  )}
+                </span>
+
+                <span>
+                  ₱0
+                </span>
+
+              </div>
+
+
+              <div className="analytics-chart-body">
+
+                <div className="analytics-chart-grid">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+
+
+                <div className="analytics-chart-bars">
+
+                  {salesTrend.map(
+                    (item) => {
+
+                      const revenue =
+                        Number(
+                          item.revenue || 0
+                        );
+
+
+                      const height =
+                        maxTrendRevenue > 0
+                          ? Math.max(
+                              (
+                                revenue /
+                                maxTrendRevenue
+                              ) * 100,
+                              revenue > 0
+                                ? 4
+                                : 0
+                            )
+                          : 0;
+
+
+                      const date =
+                        new Date(
+                          `${item.date}T00:00:00`
+                        );
+
+
+                      const label =
+                        date.toLocaleDateString(
+                          "en-PH",
+                          {
+                            month: "short",
+                            day: "numeric",
+                          }
+                        );
+
+
+                      return (
+
+                        <div
+                          className="analytics-chart-column"
+                          key={item.date}
+                          title={`${label}: ${peso(
+                            revenue
+                          )}`}
+                        >
+
+                          <div className="analytics-bar-area">
+
+                            <div
+                              className="analytics-zero-bar"
+                              style={{
+                                height:
+                                  `${height}%`,
+                              }}
+                            />
+
+                          </div>
+
+                          <span>
+                            {label}
+                          </span>
+
+                        </div>
+
+                      );
+
+                    }
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          )}
+
+        </section>
+
+
+        {/* =================================================
+            TOP PRODUCTS
+            ================================================= */}
+
+        <section className="inner-panel">
+
+          <h3>
+            Top-selling products
+          </h3>
+
+
+          {topProducts.length === 0 ? (
+
+            <div className="analytics-empty">
+
+              <div className="empty-icon">
+                ▤
+              </div>
+
+              <strong>
+                No data available
+              </strong>
+
+              <span>
+                Records will appear here as
+                activity is recorded.
+              </span>
+
+            </div>
+
+          ) : (
+
+            topProducts.map(
+              (product, index) => (
+
+                <div
+                  className="category-row"
+                  key={`${product.product_name}-${index}`}
+                >
+
+                  <span>
+
+                    <strong>
+                      {index + 1}.{" "}
+                      {product.product_name}
+                    </strong>
+
+                  </span>
+
+                  <strong>
+                    {number(
+                      product.quantity_sold
+                    )}{" "}
+                    sold
+                  </strong>
+
+                </div>
+
+              )
+            )
+
+          )}
+
+        </section>
+
+      </div>
+
+
+      {/* ===================================================
+          SALES BY CATEGORY
+          =================================================== */}
+
+      <section className="inner-panel">
+
+        <h3>
+          Sales by category
+        </h3>
+
+
+        {salesByCategory.length === 0 ? (
+
+          <div className="analytics-empty">
+
+            <div className="empty-icon">
+              ▤
+            </div>
+
+            <strong>
+              No category sales data
+            </strong>
+
+            <span>
+              Category sales will appear here
+              when completed transactions exist.
+            </span>
+
+          </div>
+
+        ) : (
+
+          salesByCategory.map(
+            (item) => (
+
+              <div
+                className="category-row"
+                key={item.category}
+              >
+
+                <span>
+                  {item.category}
+                </span>
+
+                <strong>
+                  {peso(
+                    item.revenue
+                  )}
+                </strong>
+
+              </div>
+
+            )
+          )
+
+        )}
+
+      </section>
+
+    </>
+  );
+}
+
+
+/* =========================================================
+   INVENTORY & DEMAND
+   ========================================================= */
+
+function InventoryDemand({
+
+  inventory,
+
+  mostUsedIngredients,
+
+  restockingRecommendations,
+
+  selectedIngredient,
+  setSelectedIngredient,
+
+  selectedInventory,
+
+}) {
+
+  return (
+    <>
+
+      {/* ===================================================
+          INFORMATION NOTICE
+          =================================================== */}
+
+      <div className="inline-warning">
+
+        Inventory turnover uses:
+
+        <br />
+
+        COGS = Beginning Inventory +
+        Purchases − Ending Inventory
+
+        <br />
+
+        Average Inventory =
+        (Opening Inventory +
+        Closing Inventory) ÷ 2
+
+        <br />
+
+        Turnover Ratio =
+        COGS ÷ Average Inventory
+
+        <br />
+
+        DSI =
+        (Average Inventory ÷ COGS) × 365
+
+      </div>
+
+
+      {/* ===================================================
+          INVENTORY TABLE
+          =================================================== */}
+
+      <div className="table-scroll">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                INGREDIENT
+              </th>
+
+              <th>
+                RECENT USAGE
+              </th>
+
+              <th>
+                CURRENT STOCK
+              </th>
+
+              <th>
+                REORDER LEVEL
+              </th>
+
+              <th>
+                TURNOVER / DAYS TO SELL
+              </th>
+
+              <th>
+                RECOMMENDATION
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            {inventory.length === 0 ? (
+
+              <tr>
+
+                <td colSpan="6">
+                  No inventory records available.
+                </td>
+
+              </tr>
+
+            ) : (
+
+              inventory.map(
+                (ingredient) => (
+
+                  <tr
+                    key={
+                      ingredient.inventory_id
+                    }
+                    onClick={() =>
+                      setSelectedIngredient(
+                        ingredient.name
+                      )
+                    }
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
+
+                    <td>
+
+                      <strong>
+                        {ingredient.name}
+                      </strong>
+
+                    </td>
+
+
+                    <td>
+
+                      {ingredient.recent_usage > 0
+                        ? `${quantity(
+                            ingredient.recent_usage
+                          )} ${
+                            ingredient.unit || ""
+                          }`
+                        : "0"}
+
+                    </td>
+
+
+                    <td>
+
+                      {quantity(
+                        ingredient.stock
+                      )}{" "}
+
+                      {ingredient.unit || ""}
+
+                    </td>
+
+
+                    <td>
+
+                      {quantity(
+                        ingredient.reorder
+                      )}{" "}
+
+                      {ingredient.unit || ""}
+
+                    </td>
+
+
+                    <td>
+
+                      {ingredient.data_status ===
+                      "CALCULATED" ? (
+
+                        <div>
+
+                          <strong>
+                            {ratio(
+                              ingredient.turnover_ratio
+                            )}
+                          </strong>
+
+                          <br />
+
+                          <span>
+                            {days(
+                              ingredient.days_sales_in_inventory
+                            )}
+                          </span>
+
+                        </div>
+
+                      ) : (
+
+                        <span className="badge warning">
+                          INSUFFICIENT DATA
+                        </span>
+
+                      )}
+
+                    </td>
+
+
+                    <td>
+
+                      <span
+                        className={
+                          ingredient.recommendation ===
+                          "RESTOCK"
+                            ? "badge warning"
+                            : "badge"
+                        }
+                      >
+
+                        {ingredient.recommendation}
+
+                      </span>
+
+                    </td>
+
+                  </tr>
+
+                )
+              )
+
+            )}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      {/* ===================================================
+          PRODUCT DEMAND & FORECAST
+          =================================================== */}
+
+      <section className="inner-panel">
+
+        <h3>
+          Product demand & forecast
+        </h3>
+
+        <div className="helper-line">
+          FORECAST BASED ON HISTORICAL SALES DATA
+        </div>
+
+
+        <div className="analytics-empty">
+
+          <div className="empty-icon">
+            ↗
+          </div>
+
+          <strong>
+            Insufficient data for forecast
+          </strong>
+
+          <span>
+            More historical sales are needed
+            to identify reliable demand trends.
+          </span>
+
+        </div>
+
+      </section>
+
+
+      {/* ===================================================
+          INGREDIENT INTELLIGENCE
+          =================================================== */}
+
+      <div className="analytics-section-heading">
+
+        <div>
+
+          <div className="eyebrow">
+            INGREDIENT INTELLIGENCE
+          </div>
+
+          <h3>
+            Usage, impact & restocking
+          </h3>
+
+        </div>
+
+
+        <button
+          type="button"
+          className="secondary-button"
+        >
+          Review in Purchasing →
+        </button>
+
+      </div>
+
+
+      {/* ===================================================
+          INGREDIENT DETAILS
+          =================================================== */}
+
+      <div className="analytics-two-column">
+
+
+        <section className="analytics-card ingredient-detail">
+
+          <label>
+            Select an ingredient
+          </label>
+
+
+          <select
+            value={selectedIngredient}
+            onChange={(e) =>
+              setSelectedIngredient(
+                e.target.value
+              )
+            }
+          >
+
+            {inventory.map(
+              (ingredient) => (
+
+                <option
+                  key={
+                    ingredient.inventory_id
+                  }
+                  value={
+                    ingredient.name
+                  }
+                >
+                  {ingredient.name}
+                </option>
+
+              )
+            )}
+
+          </select>
+
+
+          {selectedInventory ? (
+
+            <>
+
+              <div className="ingredient-stats">
+
+
+                <div>
+
+                  <span>
+                    SALES USAGE
+                  </span>
+
+                  <strong>
+
+                    {quantity(
+                      selectedInventory.recent_usage
+                    )}{" "}
+
+                    {selectedInventory.unit || ""}
+
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    AVAILABLE
+                  </span>
+
+                  <strong>
+
+                    {quantity(
+                      selectedInventory.stock
+                    )}{" "}
+
+                    {selectedInventory.unit || ""}
+
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    WASTE / LOSS
+                  </span>
+
+                  <strong>
+
+                    {quantity(
+                      selectedInventory.waste_quantity
+                    )}{" "}
+
+                    {selectedInventory.unit || ""}
+
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    RECEIVING EVENTS
+                  </span>
+
+                  <strong>
+
+                    {number(
+                      selectedInventory.receiving_events
+                    )}
+
+                  </strong>
+
+                </div>
+
+
+              </div>
+
+
+              {/* =========================================
+                  PRODUCTS
+                  ========================================= */}
+
+              <div className="ingredient-products">
+
+                <h4>
+
+                  Products using{" "}
+
+                  {selectedInventory.name}
+
+                </h4>
+
+
+                <div className="product-tags">
+
+                  {selectedInventory.products?.length > 0 ? (
+
+                    selectedInventory.products.map(
+                      (product) => (
+
+                        <span
+                          key={product}
+                        >
+                          {product}
+                        </span>
+
+                      )
+                    )
+
+                  ) : (
+
+                    <span>
+                      No recipe-linked products
+                    </span>
+
+                  )}
+
+                </div>
+
+              </div>
+
+
+              {/* =========================================
+                  FORMULA DETAILS
+                  ========================================= */}
+
+              <div className="inline-warning">
+
+                <strong>
+                  Inventory Cost Analysis
+                </strong>
+
+                <br />
+
+                Beginning Inventory:{" "}
+                {peso(
+                  selectedInventory.beginning_inventory_value
+                )}
+
+                <br />
+
+                Purchases:{" "}
+                {peso(
+                  selectedInventory.purchases_value
+                )}
+
+                <br />
+
+                Ending Inventory:{" "}
+                {peso(
+                  selectedInventory.ending_inventory_value
+                )}
+
+                <br />
+
+                COGS:{" "}
+                {peso(
+                  selectedInventory.cogs
+                )}
+
+                <br />
+
+                Average Inventory:{" "}
+                {peso(
+                  selectedInventory.average_inventory_value
+                )}
+
+                <br />
+
+                Inventory Turnover:{" "}
+
+                {ratio(
+                  selectedInventory.turnover_ratio
+                )}
+
+                <br />
+
+                Days Sales in Inventory:{" "}
+
+                {days(
+                  selectedInventory.days_sales_in_inventory
+                )}
+
+              </div>
+
+
+            </>
+
+          ) : (
+
+            <div className="analytics-empty">
+
+              <div className="empty-icon">
+                ◇
+              </div>
+
+              <strong>
+                No inventory selected
+              </strong>
+
+              <span>
+                Inventory records will appear here
+                when available.
+              </span>
+
+            </div>
+
+          )}
+
+        </section>
+
+
+        {/* =================================================
+            MOST USED
+            ================================================= */}
+
+        <section className="analytics-card">
+
+          <h3>
+            Most used ingredients
+          </h3>
+
+
+          {mostUsedIngredients.length === 0 ? (
+
+            <div className="analytics-empty">
+
+              <div className="empty-icon">
+                ◇
+              </div>
+
+              <strong>
+                No sales usage yet
+              </strong>
+
+              <span>
+                Complete a cash sale to see
+                ingredient consumption rankings.
+              </span>
+
+            </div>
+
+          ) : (
+
+            mostUsedIngredients
+              .filter(
+                (item) =>
+                  Number(
+                    item.recent_usage
+                  ) > 0
+              )
+              .slice(0, 10)
+              .map(
+                (item) => (
+
+                  <div
+                    className="category-row"
+                    key={
+                      item.inventory_id
+                    }
+                  >
+
+                    <span>
+                      {item.name}
+                    </span>
+
+                    <strong>
+
+                      {quantity(
+                        item.recent_usage
+                      )}{" "}
+
+                      {item.unit || ""}
+
+                    </strong>
+
+                  </div>
+
+                )
+              )
+
+          )}
+
+
+          {/* =================================================
+              RESTOCKING
+              ================================================= */}
+
+          <div className="inner-panel">
+
+            <h3>
+              Restocking recommendations
+            </h3>
+
+
+            {restockingRecommendations.length === 0 ? (
+
+              <div className="analytics-empty">
+
+                <strong>
+                  No current restock recommendations
+                </strong>
+
+                <span>
+                  Recommendations will appear when
+                  inventory reaches or falls below
+                  the reorder level.
+                </span>
+
+              </div>
+
+            ) : (
+
+              restockingRecommendations.map(
+                (item) => (
+
+                  <div
+                    className="category-row"
+                    key={
+                      item.inventory_id
+                    }
+                  >
+
+                    <span>
+                      {item.name}
+                    </span>
+
+                    <strong>
+                      RESTOCK
+                    </strong>
+
+                  </div>
+
+                )
+              )
+
+            )}
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </>
+  );
+}
+
+
+/* =========================================================
+   EXPENSES
+   ========================================================= */
+
+function Expenses({
+  sales,
+  expenses,
+}) {
+
+  const totalExpenses =
+    Number(
+      expenses?.total || 0
+    );
+
+
+  const expenseRecords =
+    Number(
+      expenses?.records || 0
+    );
+
+
+  const expenseCategories =
+    Array.isArray(
+      expenses?.by_category
+    )
+      ? expenses.by_category
+      : [];
+
+
+  const recordedSales =
+    Number(
+      sales?.revenue || 0
+    );
+
+
+  const maxComparison =
+    Math.max(
+      recordedSales,
+      totalExpenses,
+      1
+    );
+
+
+  const salesWidth =
+    (
+      recordedSales /
+      maxComparison
+    ) * 100;
+
+
+  const expenseWidth =
+    (
+      totalExpenses /
+      maxComparison
+    ) * 100;
+
+
+  return (
+    <>
+
+      {/* ===================================================
+          EXPENSE KPI CARDS
+          =================================================== */}
+
+      <div className="metric-grid compact-metrics">
+
+        <div className="metric-card">
+
+          <span>
+            Recorded sales
+          </span>
+
+          <strong>
+            {peso(recordedSales)}
+          </strong>
+
+        </div>
+
+
+        <div className="metric-card">
+
+          <span>
+            Operating expenses
+          </span>
+
+          <strong>
+            {peso(totalExpenses)}
+          </strong>
+
+        </div>
+
+
+        <div className="metric-card">
+
+          <span>
+            Expense records
+          </span>
+
+          <strong>
+            {number(
+              expenseRecords
+            )}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      {/* ===================================================
+          SALES VS EXPENSES
+          =================================================== */}
+
+      <section className="inner-panel">
+
+        <h3>
+          Sales vs operating expenses
+        </h3>
+
+
+        <div className="comparison-bars">
+
+
+          <div>
+
+            <span>
+              Sales
+            </span>
+
+            <div>
+
+              <i
+                style={{
+                  width:
+                    `${Math.max(
+                      salesWidth,
+                      recordedSales > 0
+                        ? 3
+                        : 0
+                    )}%`,
+                }}
+              />
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Expenses
+            </span>
+
+            <div>
+
+              <i
+                className="expense-bar"
+                style={{
+                  width:
+                    `${Math.max(
+                      expenseWidth,
+                      totalExpenses > 0
+                        ? 3
+                        : 0
+                    )}%`,
+                }}
+              />
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      {/* ===================================================
+          EXPENSES BY CATEGORY
+          =================================================== */}
+
+      <section className="inner-panel">
+
+        <h3>
+          Expenses by category
+        </h3>
+
+
+        {expenseCategories.length === 0 ? (
+
+          <div className="analytics-empty">
+
+            <div className="empty-icon">
+              ₱
+            </div>
+
+            <strong>
+              No expense data available
+            </strong>
+
+            <span>
+              Expense records will appear here
+              when an expense source is connected.
+            </span>
+
+          </div>
+
+        ) : (
+
+          expenseCategories.map(
+            (item) => (
+
+              <div
+                className="category-row"
+                key={item.name}
+              >
+
+                <span>
+                  {item.name}
+                </span>
+
+                <strong>
+                  {peso(item.amount)}
+                </strong>
+
+              </div>
+
+            )
+          )
+
+        )}
+
+      </section>
+
+    </>
   );
 }
